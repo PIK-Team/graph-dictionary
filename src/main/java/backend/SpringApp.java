@@ -2,19 +2,22 @@ package backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
+
 
 @SpringBootApplication
-@RestController
+@EnableNeo4jRepositories
 public class SpringApp {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringApp.class, args);
     }
 
-    @GetMapping("/")
-    public String sayHello() {
-        return "Hello world! Spring boot";
-    }
+//    @GetMapping("/hello")
+//    public String sayHello() {
+//
+//        return "Hello world! Spring boot";
+//    }
+
+
 }
