@@ -1,6 +1,9 @@
 import backend.GarbageClass
 import spock.lang.Specification
 
+
+// Just for first step and testing purpose. Delete later
+
 class GarbageClassTest extends Specification {
     def "just true"() {
         expect: 1 == 1

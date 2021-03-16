@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SpringApp {
 
     public static void main(String[] args) {
-        System.out.println("DUPA");
         SpringApplication.run(SpringApp.class, args);
-        System.out.println("DUPA");
     }
 
     @GetMapping("/")
