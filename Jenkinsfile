@@ -20,10 +20,7 @@ cd ..'''
       steps {
         echo 'Static analysis...'
         sh '''cd api
-./gradlew sonarqube./gradlew sonarqube \\
-  -Dsonar.projectKey=graph-dictionary \\
-  -Dsonar.host.url=http://localhost:9000 \\
-  -Dsonar.login=9cc460911f0a7a659c937c9c295d066abc799dac
+./gradlew sonarqube./gradlew sonarqube -Dsonar.projectKey=graph-dictionary -Dsonar.host.url=http://localhost:9000 -Dsonar.login=9cc460911f0a7a659c937c9c295d066abc799dac
 cd ..'''
       }
     }
