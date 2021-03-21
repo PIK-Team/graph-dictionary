@@ -16,9 +16,18 @@ cd ..'''
       }
     }
 
+    stage('Static') {
+      steps {
+        echo 'Static analysis...'
+        sh '''cd api
+./gradlew sonarqube
+cd ..'''
+      }
+    }
+
     stage('Deploy') {
       steps {
-        echo 'Deploying....'
+        echo 'Deploying...'
       }
     }
 
