@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'org.springframework.boot' version '2.4.3'
+    id "org.sonarqube" version "3.0"
 }
 
 group 'pw.pik.graph-dictionary.backend'
