@@ -17,6 +17,14 @@ repositories {
 }
 
 
+jar {
+   enabled = true
+}
+
+bootJar {
+   classifier = 'application'
+}
+
 dependencies {
     testImplementation 'org.spockframework:spock-core:2.0-M4-groovy-3.0'
 
@@ -43,7 +51,7 @@ publishing {
             from components.java
         }
     }
-    
+
     repositories{
         
         maven{
@@ -52,7 +60,7 @@ publishing {
                 password 'admin'
             }
 
-            url "http://172.18.0.6:8081/repository/graph-dictionary-repo"
+            url "http://172.18.0.6:8081/repository/graph-dictionary-repo/"
         }
     }
 }
