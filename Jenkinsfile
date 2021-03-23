@@ -5,7 +5,7 @@ pipeline {
       steps {
         echo 'Building..'
         sh '''cd api
-./gradlew build
+./gradlew clean build
 cd ..'''
       }
     }
