@@ -31,5 +31,12 @@ cd ..'''
       }
     }
 
+    stage('Run') {
+      steps {
+        sh '''cd api
+./gradlew bootRun'''
+      }
+    }
+
   }
 }
