@@ -46,11 +46,11 @@ publishing {
         
         maven{
             credentials{
-                username: 'admin'
-                password: 'admin'
+                username 'admin'
+                password 'admin'
             }
 
-            url = "http://172.18.0.6:8081/repository/graph-dictionary-repo"
+            url "http://172.18.0.6:8081/repository/graph-dictionary-repo"
         }
     }
 }
