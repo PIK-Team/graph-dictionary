@@ -39,7 +39,7 @@ test {
 publishing {
     repositories{
         maven{
-            url = "http://172.18.0.6/repository/graph-dictionary-repo/"
+            url = "http://172.18.0.6/repository/graph-dictionary-repo"
         }
     }
 }
