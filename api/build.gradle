@@ -38,10 +38,6 @@ test {
 
 publishing {
 
-    mavenJava(MavenPublication) {
-          from components.java
-      }
-
     repositories{
         
         maven{
