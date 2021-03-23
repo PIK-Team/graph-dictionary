@@ -37,9 +37,20 @@ test {
 }
 
 publishing {
+
+    mavenJava(MavenPublication) {
+          from components.java
+      }
+
     repositories{
+        
         maven{
-            url = "http://172.18.0.6/repository/graph-dictionary-repo"
+            credentials{
+                username: 'admin'
+                password: 'admin'
+            }
+
+            url = "http://172.18.0.6:8081/repository/graph-dictionary-repo"
         }
     }
 }
