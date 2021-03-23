@@ -5,7 +5,7 @@ pipeline {
       steps {
         echo 'Building..'
         sh '''cd api
-./gradlew clean build
+./gradlew build
 cd ..'''
       }
     }
@@ -28,13 +28,9 @@ cd ..'''
     stage('Deploy') {
       steps {
         echo 'Deploying...'
-      }
-    }
-
-    stage('Run') {
-      steps {
         sh '''cd api
-./gradlew bootRun'''
+./gradlew publish
+cd ..'''
       }
     }
 
