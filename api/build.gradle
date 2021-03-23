@@ -3,7 +3,10 @@ plugins {
     id 'application'
     id 'org.springframework.boot' version '2.4.3'
     id 'org.sonarqube' version '3.0'
+    id 'maven-publish'
 }
+
+
 
 group 'pw.pik.graph-dictionary.backend'
 version '1.0-SNAPSHOT'
@@ -30,5 +33,13 @@ test {
     apply plugin: 'groovy'
     testLogging {
         events 'passed', 'skipped', 'failed'
+    }
+}
+
+publishing {
+    repositories{
+        maven{
+            url = "http://172.18.0.6/repository/graph-dictionary-repo/"
+        }
     }
 }
