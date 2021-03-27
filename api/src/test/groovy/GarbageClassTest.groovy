@@ -5,7 +5,7 @@ import spock.lang.Specification
 // Just for first step and testing purpose. Delete later
 
 class GarbageClassTest extends Specification {
-    def "just true"() {
+    def "just true 1==1"() {
         expect: 1 == 1
     }
 
