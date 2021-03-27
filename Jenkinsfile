@@ -5,15 +5,6 @@ pipeline {
       steps {
         echo 'Building..'
         sh '''cd api
-./gradlew cV
-cd ..'''
-        sh '''cd api
-./gradlew release
-cd ..'''
-        sh '''cd api
-./gradlew cV
-cd ..'''
-        sh '''cd api
 ./gradlew clean build
 cd ..'''
       }
