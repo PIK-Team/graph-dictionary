@@ -74,7 +74,7 @@ scmVersion {
 	tag {
         prefix = 'pw.pik.graph-dictionary.backend'
 		branchPrefix = [
-			'release.*' : 'pw.pik.graph-dictionary.backend.release'
+			'release.*' : 'pw.pik.graph-dictionary.backend.release',
 			'develop.*' : 'pw.pik.graph-dictionary.backend.develop'
 		]
     }
