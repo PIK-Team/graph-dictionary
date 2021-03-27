@@ -4,9 +4,11 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Building..'
-        sh 'cd api'
-        sh './gradlew cV'
-        sh '''./gradlew clean build
+        sh '''cd api
+./gradlew cV
+cd ..'''
+        sh '''cd api
+./gradlew clean build
 cd ..'''
       }
     }
