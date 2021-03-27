@@ -8,10 +8,27 @@ plugins {
 }
 
 
+scmVersion {	
+	apply plugin: "pl.allegro.tech.build.axion-release"
+    repository {
+        directory = project.rootProject.file('..')
+		pushTagsOnly = true
+    }
+	checks {
+        aheadOfRemote = false
+    }
+	tag {
+        prefix = 'pw.pik.graph-dictionary.backend'
+		branchPrefix = [
+			'release.*' : 'pw.pik.graph-dictionary.backend.release',
+			'develop.*' : 'pw.pik.graph-dictionary.backend.develop'
+		]
+    }
+}
+
 
 group 'pw.pik.graph-dictionary.backend'
 project.version = scmVersion.version
-
 
 repositories {
     mavenCentral()
@@ -66,23 +83,7 @@ publishing {
     }
 }
 
-scmVersion {	
-	apply plugin: "pl.allegro.tech.build.axion-release"
-    repository {
-        directory = project.rootProject.file('..')
-		pushTagsOnly = true
-    }
-	checks {
-        aheadOfRemote = false
-    }
-	tag {
-        prefix = 'pw.pik.graph-dictionary.backend'
-		branchPrefix = [
-			'release.*' : 'pw.pik.graph-dictionary.backend.release',
-			'develop.*' : 'pw.pik.graph-dictionary.backend.develop'
-		]
-    }
-}
+
 
 task printVersion {
 	println project.version
