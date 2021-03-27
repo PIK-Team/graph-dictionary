@@ -10,7 +10,7 @@ plugins {
 
 
 group 'pw.pik.graph-dictionary.backend'
-version = scmVersion.version
+project.version = scmVersion.version
 
 
 repositories {
@@ -82,4 +82,8 @@ scmVersion {
 			'develop.*' : 'pw.pik.graph-dictionary.backend.develop'
 		]
     }
+}
+
+task printVersion {
+	println project.version
 }
