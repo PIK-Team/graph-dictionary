@@ -70,6 +70,10 @@ scmVersion {
 	apply plugin: "pl.allegro.tech.build.axion-release"
     repository {
         directory = project.rootProject.file('..')
+		pushTagsOnly = true
+    }
+	checks {
+        aheadOfRemote = false
     }
 	tag {
         prefix = 'pw.pik.graph-dictionary.backend'
