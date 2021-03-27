@@ -4,6 +4,7 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Building..'
+        sh './gradlew cV'
         sh '''cd api
 ./gradlew clean build
 cd ..'''
