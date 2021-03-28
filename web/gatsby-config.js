@@ -9,8 +9,8 @@ module.exports = {
       options: {
         apis: [
           {
-            prefix: 'springApi',
-            baseUrl: "http://localhost:8080",
+            prefix: 'api',
+            baseUrl: "http://localhost:9090",
             endpoints: ['people', 'profile'],
           }
         ],
