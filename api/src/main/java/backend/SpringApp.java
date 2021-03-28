@@ -15,12 +15,4 @@ public class SpringApp {
         app.setDefaultProperties(Collections.singletonMap("server.port", "9090"));
         app.run(args);
     }
-
-//    @GetMapping("/hello")
-//    public String sayHello() {
-//
-//        return "Hello world! Spring boot";
-//    }
-
-
 }
