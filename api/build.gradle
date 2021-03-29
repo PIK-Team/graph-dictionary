@@ -76,8 +76,6 @@ publishing {
     }
 }
 
-
-
 task printVersion {
 	println project.version
 }
