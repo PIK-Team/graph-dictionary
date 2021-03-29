@@ -82,13 +82,3 @@ publishing {
 task printVersion {
 	println project.version
 }
-
-task loadKeyPassword << {
-    scmVersion.repository.customKeyPassword = loadPasswordFromSecureStorageOrSomething()
-    // you can load the key from secure storage as well!
-    scmVersion.repository.customKey = loadKeyFromSecureStorageOrSomething()
-}
-
-task release {
-    dependsOn loadKeyPassword
-}
