@@ -9,7 +9,7 @@ pipeline {
 cd ..'''
         sh '''cd api
 ./gradlew cV
-./gradlew release
+./gradlew release -Prelease.disableChecks
 ./gradlew cV
 cd ..'''
       }
