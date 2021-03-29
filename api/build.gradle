@@ -14,9 +14,6 @@ scmVersion {
         directory = project.rootProject.file('..')
 		pushTagsOnly = true
     }
-	checks {
-        aheadOfRemote = false
-    }
 	tag {
         prefix = 'pw.pik.graph-dictionary.backend'
 		branchPrefix = [
