@@ -11,6 +11,7 @@ plugins {
 scmVersion {	
 	apply plugin: "pl.allegro.tech.build.axion-release"
     repository {
+		customKey = project.file("/var/jenkins_home/.ssh/new_jenkins_ssh")
         directory = project.rootProject.file('..')
 		pushTagsOnly = true
     }
