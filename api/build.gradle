@@ -9,7 +9,7 @@ plugins {
 
 
 scmVersion {	
-	apply plugin: "pl.allegro.tech.build.axion-release"
+    apply plugin: "pl.allegro.tech.build.axion-release"
     repository {
         directory = project.rootProject.file('..')
 		pushTagsOnly = true
