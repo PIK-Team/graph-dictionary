@@ -59,7 +59,7 @@ test {
 publishing {
 
     publications {
-        mavenJava(MavenPublication) {
+        mavenWeb(MavenPublication) {
             from components.web
         }
     }
