@@ -11,7 +11,7 @@ git fetch --tags'''
 cd ..'''
         sh '''cd api
 ./gradlew cV
-./gradlew release -Prelease.disableChecks
+./gradlew release -Prelease.disableChecks -Prelease.customKeyFile="/var/jenkins_home/.ssh/new_jenkins_ssh" -Prelease.customKeyPassword=password
 ./gradlew cV
 cd ..'''
       }
