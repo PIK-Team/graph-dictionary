@@ -29,11 +29,11 @@ repositories {
 }
 
 
-jar {
+war {
    enabled = true
 }
 
-bootJar {
+bootWar {
    classifier = 'application'
 }
 
