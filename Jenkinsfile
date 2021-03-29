@@ -7,6 +7,11 @@ pipeline {
         sh '''cd api
 ./gradlew clean build
 cd ..'''
+        sh '''cd api
+./gradlew cV
+./gradlew release
+./gradlew cV
+cd ..'''
       }
     }
 
