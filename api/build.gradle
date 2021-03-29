@@ -15,7 +15,7 @@ scmVersion {
 		pushTagsOnly = true
     }
 	tag {
-        prefix = 'pw.pik.graph-dictionary.backend'
+        prefix = 'pw.pik.graph_dictionary.backend'
     }
 }
 
