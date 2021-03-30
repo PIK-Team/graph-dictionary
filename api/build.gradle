@@ -59,8 +59,8 @@ test {
 publishing {
 
     publications {
-        mavenWar(MavenPublication) {
-            from components.war
+        mavenWeb(MavenPublication) {
+            from components.web
         }
     }
 
