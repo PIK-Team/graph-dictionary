@@ -29,9 +29,15 @@ repositories {
 }
 
 
-bootWar {
-
+configurations {
+    [apiElements, runtimeElements].each {
+        it.outgoing.artifacts.removeIf {
+            it.buildDependencies.getDependencies(null).contains(war)
+        }
+        it.outgoing.artifact(bootWar)
+    }
 }
+
 
 dependencies {
     testImplementation 'org.spockframework:spock-core:2.0-M4-groovy-3.0'
