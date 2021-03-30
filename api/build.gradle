@@ -29,12 +29,8 @@ repositories {
 }
 
 
-war {
-   enabled = true
-}
-
 bootWar {
-   classifier = 'application'
+
 }
 
 dependencies {
