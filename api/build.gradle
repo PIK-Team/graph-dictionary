@@ -28,11 +28,11 @@ repositories {
 }
 
 
-jar {
+war {
    enabled = true
 }
 
-bootJar {
+bootWar {
    classifier = 'application'
 }
 
@@ -58,8 +58,8 @@ test {
 publishing {
 
     publications {
-        mavenJava(MavenPublication) {
-            from components.java
+        mavenWar(MavenPublication) {
+            from components.war
         }
     }
 
