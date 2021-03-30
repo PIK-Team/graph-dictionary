@@ -10,7 +10,8 @@ module.exports = {
         apis: [
           {
             prefix: 'api',
-            baseUrl: "http://localhost:9090",
+            // baseUrl: "http://localhost:9090",
+            baseUrl: "https://agile-badlands-90260.herokuapp.com/",
             endpoints: ['people', 'profile'],
           }
         ],
