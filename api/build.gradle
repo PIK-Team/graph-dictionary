@@ -1,5 +1,4 @@
 plugins {
-    id 'war'
     id 'java'
     id 'application'
     id 'org.springframework.boot' version '2.4.3'
@@ -29,11 +28,11 @@ repositories {
 }
 
 
-war {
+jar {
    enabled = true
 }
 
-bootWar {
+bootJar {
    classifier = 'application'
 }
 
@@ -59,8 +58,8 @@ test {
 publishing {
 
     publications {
-        mavenWeb(MavenPublication) {
-            from components.web
+        mavenJava(MavenPublication) {
+            from components.java
         }
     }
 
