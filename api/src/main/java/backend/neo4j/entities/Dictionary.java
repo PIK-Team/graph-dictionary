@@ -16,14 +16,28 @@ public class Dictionary
     private Long id;
 
     private String dictionaryName;
+    private String imageURI;
+    private String description;
 
     @Relationship(type="INCLUDES")
     private List<Entry> entries = new ArrayList<>();
 
-    public Dictionary(String dictionaryName, List<Entry> entries)
+    public Dictionary(String dictionaryName, String imageURI, String description, List<Entry> entries)
     {
         this.dictionaryName = dictionaryName;
+        this.imageURI = imageURI;
+        this.description = description;
         this.entries = entries;
+    }
+
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public void setDescription(String description)
+    {
+        this.description = description;
     }
 
     public String getDictionaryName()
@@ -45,4 +59,8 @@ public class Dictionary
     {
         this.entries = entries;
     }
+
+    public String getImageURI() { return imageURI; }
+
+    public void setImageURI(String imageURI) { this.imageURI = imageURI; }
 }

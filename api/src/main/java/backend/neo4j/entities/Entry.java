@@ -18,12 +18,26 @@ public class Entry
     private Word word;
 
     @Relationship(type="MEANS")
-    private List<Definition> defiitions = new ArrayList<>();
+    private List<Definition> definitions = new ArrayList<>();
 
-    public Entry(Word word, List<Definition> defiitions)
+    @Relationship(type="CATEGORIZES")
+    private List<Entry> subentries = new ArrayList<>();
+
+    public Entry(Word word, List<Definition> definitions, List<Entry> subentries)
     {
         this.word = word;
-        this.defiitions = defiitions;
+        this.definitions = definitions;
+        this.subentries = subentries;
+    }
+
+    public List<Entry> getSubentries()
+    {
+        return subentries;
+    }
+
+    public void setSubentries(List<Entry> subentries)
+    {
+        this.subentries = subentries;
     }
 
     public Word getWord()
@@ -36,13 +50,13 @@ public class Entry
         this.word = word;
     }
 
-    public List<Definition> getDefiitions()
+    public List<Definition> getDefinitions()
     {
-        return defiitions;
+        return definitions;
     }
 
-    public void setDefiitions(List<Definition> defiitions)
+    public void setDefinitions(List<Definition> definitions)
     {
-        this.defiitions = defiitions;
+        this.definitions = definitions;
     }
 }
