@@ -9,19 +9,14 @@ import org.springframework.data.neo4j.core.schema.Relationship;
 @Node
 public class Word
 {
-    @Id
-    @GeneratedValue
-    private long ID;
+
+    @Id @GeneratedValue
+    private long id;
     private String word;
 
     @Relationship(type="MEANS")
     private List<Definition> definitions = new ArrayList<>();
 
-    public Word(String word, List<Definition> definitions)
-    {
-        this.word = word;
-        this.definitions = definitions;
-    }
 
     public String getWord()
     {

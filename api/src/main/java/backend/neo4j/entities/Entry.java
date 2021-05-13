@@ -23,12 +23,6 @@ public class Entry
     @Relationship(type="CATEGORIZES")
     private List<Entry> subentries = new ArrayList<>();
 
-    public Entry(Word word, List<Definition> definitions, List<Entry> subentries)
-    {
-        this.word = word;
-        this.definitions = definitions;
-        this.subentries = subentries;
-    }
 
     public List<Entry> getSubentries()
     {

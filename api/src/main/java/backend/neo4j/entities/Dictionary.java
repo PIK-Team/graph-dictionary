@@ -22,13 +22,6 @@ public class Dictionary
     @Relationship(type="INCLUDES")
     private List<Entry> entries = new ArrayList<>();
 
-    public Dictionary(String dictionaryName, String imageURI, String description, List<Entry> entries)
-    {
-        this.dictionaryName = dictionaryName;
-        this.imageURI = imageURI;
-        this.description = description;
-        this.entries = entries;
-    }
 
     public String getDescription()
     {
