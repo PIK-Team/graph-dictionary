@@ -1,5 +1,5 @@
 import React from "react"
-import Container from "../components/container"
+import Container from "../components/container/container"
 import { graphql } from 'gatsby';
 
 const HomePage = ({data}) => {
