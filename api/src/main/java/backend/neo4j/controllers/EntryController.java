@@ -28,9 +28,9 @@ public class EntryController {
     @RequestMapping(value = "/define", method = RequestMethod.POST)
     public void define(@RequestBody Map<String, String> params) {
         if (params.get("parent_entry") != null)
-            entryRepository.defineChildEntry(params.get("word"), params.get("definition"), Long.parseLong(params.get("parent_entry")));
+            entryRepository.defineChildEntry(params.get("word"), params.get("definition"), params.get("dictionary") ,Long.parseLong(params.get("parent_entry")));
         else
-            entryRepository.defineRootEntry(params.get("word"), params.get("definition"));
+            entryRepository.defineRootEntry(params.get("word"), params.get("definition"), params.get("dictionary"));
     }
 
     @GetMapping

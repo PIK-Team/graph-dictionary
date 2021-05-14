@@ -16,17 +16,25 @@ public interface EntryRepository extends Neo4jRepository<Entry, Long>
             "MATCH(word:Word{word: $inputWord})\n" +
             "MATCH(definition: Definition{definition: $inputDefinition})\n" +
             "MATCH(parent: Entry) WHERE id(parent) = $parent_id "+
+            "MATCH (dict: Dictionary {dictionaryName: $dictionary} )" +
             "CREATE((entry:Entry) -[:MEANS]-> (definition) ) " +
             "MERGE( (entry) -[:DEFINES]-> (word) )" +
-            "MERGE( (parent) -[:CATEGORIZES]-> (entry) )")
-    void defineChildEntry(@Param("inputWord") String inputWord, @Param("inputDefinition") String inputDefinition, @Param("parent_id") Long parent_id);
+            "MERGE( (parent) -[:CATEGORIZES]-> (entry) )" +
+            "MERGE( (dict) -[:INCLUDES]-> (entry) )"
+    )
+    void defineChildEntry(@Param("inputWord") String inputWord, @Param("inputDefinition") String inputDefinition,
+                          @Param ("dictionary") String dictionary, @Param("parent_id") Long parent_id);
 
     @Query("" +
             "MATCH(word:Word{word: $inputWord})\n" +
             "MATCH(definition: Definition{definition: $inputDefinition})\n" +
+            "MATCH (dict: Dictionary {dictionaryName: $dictionary} )" +
             "CREATE((entry:Entry) -[:MEANS]-> (definition) ) " +
-            "MERGE( (entry) -[:DEFINES]-> (word) )")
-    void defineRootEntry(@Param("inputWord") String inputWord, @Param("inputDefinition") String inputDefinition);
+            "MERGE( (entry) -[:DEFINES]-> (word) )"+
+            "MERGE( (dict) -[:INCLUDES]-> (entry) )"
+    )
+    void defineRootEntry(@Param("inputWord") String inputWord, @Param("inputDefinition") String inputDefinition,
+                         @Param ("dictionary") String dictionary);
 
 
     // Te zapytania nie pobieraja zwiazkow glebszych niz 1

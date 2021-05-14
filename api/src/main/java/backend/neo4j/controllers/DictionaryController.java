@@ -28,4 +28,9 @@ public class DictionaryController {
     public Collection<Dictionary> getAll() {
         return dictionaryRepository.findAll();
     }
+
+    @GetMapping("/dicts")
+    public Collection<Dictionary> getDictionaryListNoEntries(){
+        return dictionaryRepository.getDictionaryListNoEntries();
+    }
 }
