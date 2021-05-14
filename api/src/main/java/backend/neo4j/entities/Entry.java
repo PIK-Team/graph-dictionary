@@ -14,13 +14,13 @@ public class Entry
     @Id @GeneratedValue
     private Long id;
 
-    @Relationship(type="DEFINES")
+    @Relationship(type="DEFINES", direction = Relationship.Direction.OUTGOING)
     private Word word;
 
-    @Relationship(type="MEANS")
+    @Relationship(type="MEANS", direction = Relationship.Direction.OUTGOING)
     private List<Definition> definitions = new ArrayList<>();
 
-    @Relationship(type="CATEGORIZES")
+    @Relationship(type="CATEGORIZES", direction = Relationship.Direction.OUTGOING)
     private List<Entry> subentries = new ArrayList<>();
 
 

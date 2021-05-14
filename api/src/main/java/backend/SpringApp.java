@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import java.util.Collections;
 
 @SpringBootApplication
-@EnableNeo4jRepositories
+//@EnableNeo4jRepositories
 @EnableTransactionManagement
 public class SpringApp extends SpringBootServletInitializer
 {

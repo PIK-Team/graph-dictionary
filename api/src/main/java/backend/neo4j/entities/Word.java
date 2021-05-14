@@ -11,12 +11,8 @@ public class Word
 {
 
     @Id @GeneratedValue
-    private long id;
+    private Long id;
     private String word;
-
-    @Relationship(type="MEANS")
-    private List<Definition> definitions = new ArrayList<>();
-
 
     public String getWord()
     {
@@ -26,15 +22,5 @@ public class Word
     public void setWord(String word)
     {
         this.word = word;
-    }
-
-    public List<Definition> getDefinitions()
-    {
-        return definitions;
-    }
-
-    public void setDefinitions(List<Definition> definitions)
-    {
-        this.definitions = definitions;
     }
 }
