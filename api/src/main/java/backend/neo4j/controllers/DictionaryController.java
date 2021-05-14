@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("dictionaries2")
+@RequestMapping("dictionaries")
 public class DictionaryController {
     @Autowired
     DictionaryRepository dictionaryRepository;

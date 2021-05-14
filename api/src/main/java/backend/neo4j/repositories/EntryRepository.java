@@ -1,16 +1,18 @@
 package backend.neo4j.repositories;
 
 import backend.neo4j.entities.Entry;
+import backend.neo4j.entities.Word;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.Collection;
 
-//@RepositoryRestResource(collectionResourceRel = "entries", path = "entries")
-public interface EntryRepository extends Neo4jRepository<Entry, Long>
+@RepositoryRestResource(collectionResourceRel = "entries", path = "entries")
+public interface EntryRepository extends Repository<Entry, Long>
 {
     @Query("" +
             "MATCH(word:Word{word: $inputWord})\n" +
@@ -43,11 +45,20 @@ public interface EntryRepository extends Neo4jRepository<Entry, Long>
             "MATCH (parent) -[:CATEGORIZES] -> (related: Entry)\n" +
             "OPTIONAL MATCH (related) - [relationship] -> (target)" +
             "WHERE NOT related = input\n" +
-            "RETURN  related, collect(relationship), collect(target)")
+            "OPTIONAL MATCH (target) - [subrelationship] -> (subtarget)\n" +
+            "WHERE NOT target = input\n" +
+            "RETURN  related, collect(relationship), collect(target), collect(subrelationship)")
     Collection<Entry> getRelated(@Param("input_id") Long input_id);
 
     @Query("MATCH (e: Entry)" +
             "OPTIONAL MATCH (e)-[relationship]->(child)" +
             "RETURN e, collect(relationship), collect(child)")
     Collection<Entry> myFindAll();
+
+    Collection<Entry> findAll();
+
+    @Query("MATCH (e: Entry)-[:DEFINES]->(w: Word{word : $word})\n" +
+            "MATCH (e)-[rel]->(target)\n" +
+            "RETURN e, collect(rel), collect(target)")
+    Collection<Entry> findByWord(@Param("word") String word);
 }

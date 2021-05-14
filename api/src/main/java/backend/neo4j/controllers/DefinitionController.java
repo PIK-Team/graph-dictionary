@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RestController
-@RequestMapping("/definitions2")
+@RequestMapping("/definitions")
 public class DefinitionController {
 
     @Autowired

@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.Map;
 
 @RestController
-@RequestMapping("entries2")
+@RequestMapping("entries")
 public class EntryController {
 
     @Autowired
@@ -39,14 +39,21 @@ public class EntryController {
     }
 
 
+
     @GetMapping("{id}/related")
     public Collection<Entry> getRelated(@PathVariable Long id){
         return entryRepository.getRelated(id);
     }
 
+
     @GetMapping("/findall")
     public Collection<Entry> myFindAll(){
         return entryRepository.myFindAll();
+    }
+
+    @GetMapping("{word}/findByWord")
+    public Collection<Entry> findByWord(@PathVariable String word){
+        return entryRepository.findByWord(word);
     }
 
 }
