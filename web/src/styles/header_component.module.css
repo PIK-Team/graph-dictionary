@@ -7,7 +7,7 @@
 	height: 120px;
 	width: 100%;
 	background-color: #A9A9A9;
-
+	z-index: 10;
 }
 
 .headerImgWrapper {

@@ -1,6 +1,4 @@
 import * as React from 'react'
-import { Link, useStaticQuery, graphql } from "gatsby"
-import Img from "gatsby-image"
 import * as footerStyle from '../styles/footer_component.module.css'
 
 
