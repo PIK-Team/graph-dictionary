@@ -1,0 +1,24 @@
+.wrapper {
+	height: 40px;
+	width: 100%;
+	background-color: #1E90FF;
+	-webkit-box-shadow: 0px 0px 14px 3px rgba(0,0,0,0.5); 
+	box-shadow: 0px 0px 14px 3px rgba(0,0,0,0.5);
+	text-align:center;
+	line-height: 40px;
+	z-index: 10;
+	position:relative;
+}
+
+.name {
+	font-weight:bold;
+	color: #ffffff;
+	font-family: 'Raleway',sans-serif;
+	font-weight: 800;
+	font-size: 20pt;
+	margin: 0 0 24px;
+	text-align: center;
+	text-transform: uppercase;
+	-webkit-text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+	text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+}
