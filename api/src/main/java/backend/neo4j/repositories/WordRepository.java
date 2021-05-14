@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import java.util.Collection;
 
 @RepositoryRestResource(collectionResourceRel = "words", path = "words")
-public interface WordRepository extends Repository<Word, Long>
+public interface WordRepository extends Repository<Word, String>
 {
 
     Collection<Word> findAll();
-
     Word save(Word word);
 }

@@ -10,8 +10,9 @@ import org.springframework.data.neo4j.core.schema.Relationship;
 public class Word
 {
 
-    @Id @GeneratedValue
-    private Long id;
+//    @Id @GeneratedValue
+//    private Long id;
+    @Id
     private String word;
 
     public String getWord()

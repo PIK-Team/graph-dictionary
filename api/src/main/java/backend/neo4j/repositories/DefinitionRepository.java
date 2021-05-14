@@ -21,5 +21,6 @@ public interface DefinitionRepository extends Repository<Definition, Long>
 
     Collection<Definition> findAll();
 
+
     Definition save(Definition definition);
 }

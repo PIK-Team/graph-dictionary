@@ -32,7 +32,4 @@ public class WordController {
         return wordRepository.save(word);
     }
 
-
-
-
 }
