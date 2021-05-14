@@ -4778,24 +4778,24 @@ if (false) {} else {
 /***/ }),
 
 /***/ "react-dom/server":
-/*!*********************************************************************************************!*\
-  !*** external "/home/piotr/code/lab/graph-dictionary/web/node_modules/react-dom/server.js" ***!
-  \*********************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** external "C:\\Users\\Maciej\\Desktop\\graph-dictionary\\web\\node_modules\\react-dom\\server.js" ***!
+  \********************************************************************************************************/
 /***/ ((module) => {
 
 "use strict";
-module.exports = require("/home/piotr/code/lab/graph-dictionary/web/node_modules/react-dom/server.js");;
+module.exports = require("C:\\Users\\Maciej\\Desktop\\graph-dictionary\\web\\node_modules\\react-dom\\server.js");;
 
 /***/ }),
 
 /***/ "react":
-/*!****************************************************************************************!*\
-  !*** external "/home/piotr/code/lab/graph-dictionary/web/node_modules/react/index.js" ***!
-  \****************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** external "C:\\Users\\Maciej\\Desktop\\graph-dictionary\\web\\node_modules\\react\\index.js" ***!
+  \***************************************************************************************************/
 /***/ ((module) => {
 
 "use strict";
-module.exports = require("/home/piotr/code/lab/graph-dictionary/web/node_modules/react/index.js");;
+module.exports = require("C:\\Users\\Maciej\\Desktop\\graph-dictionary\\web\\node_modules\\react\\index.js");;
 
 /***/ })
 

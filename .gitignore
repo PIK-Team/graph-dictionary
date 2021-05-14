@@ -283,3 +283,10 @@ gradle-app.setting
 **/build/
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,java,gradle,vscode,node
+
+
+
+
+# WEB Directory
+.web/.cache
+.web/node_modules
