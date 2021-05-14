@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.Collection;
 import java.util.List;
 
-@RepositoryRestResource(collectionResourceRel = "old-definitions", path="old-definitions")
+@RepositoryRestResource(collectionResourceRel = "definitions", path="definitions")
 public interface DefinitionRepository extends Repository<Definition, Long>
 {
     @Query("MATCH (d:Definition) RETURN d LIMIT 2")
