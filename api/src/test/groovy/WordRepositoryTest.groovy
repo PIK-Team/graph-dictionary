@@ -1,8 +1,13 @@
+import backend.SpringApp
+import backend.neo4j.entities.Word
+import backend.neo4j.repositories.WordRepository
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
+import org.neo4j.harness.TestServerBuilder
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.data.neo4j.DataNeo4jTest
+import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.neo4j.core.Neo4jClient
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
@@ -11,37 +16,19 @@ import spock.lang.Specification
 import org.neo4j.harness.ServerControls;
 import org.neo4j.harness.TestServerBuilders;
 
-@DataNeo4jTest
+@SpringBootTest(classes=SpringApp.class)
 class WordRepositoryTest extends Specification {
 
-    private static Neo4j embeddedDatabaseServer;
+    @Autowired private WordRepository wordRepository;
 
-    def setupSpec()
-    {
-        neo4jContainer = new Neo4jContainer<>().withAdminPassword("romek");
-        neo4jContainer.start();
-    }
+    def "adding word to the database"() {
 
-    def cleanupSpec()
-    {
-        neo4jContainer.close();
-    }
+        when:
+            Word word = new Word();
+            word.setWord("Test");
+            wordRepository.save(word);
 
-    @DynamicPropertySource
-    static void neo4jProperties(DynamicPropertyRegistry registry) {
-
-        registry.add("spring.neo4j.uri", neo4jContainer::getBoltUrl);
-        registry.add("spring.neo4j.authentication.username", () -> "neo4j");
-        registry.add("spring.neo4j.authentication.password", neo4jContainer::getAdminPassword);
-    }
-
-    def "adding word to the database"(@Autowired Neo4jClient client) {
-
-        given:
-        Optional<Long> result = client.query("MATCH (n) RETURN COUNT(n)")
-                .fetchAs(Long.class)
-                .one();
-        expect:
-            result.get() == 0L;
+        then:
+            wordRepository.findFirstByWord(word.getWord()).getWord().equals(word.getWord());
     }
 }

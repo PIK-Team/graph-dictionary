@@ -16,5 +16,6 @@ public interface WordRepository extends Repository<Word, String>
 {
 
     Collection<Word> findAll();
-    Word save(Word word);
+    void save(Word word);
+    Word findFirstByWord(String word);
 }

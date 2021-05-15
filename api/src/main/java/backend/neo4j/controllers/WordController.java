@@ -28,8 +28,8 @@ public class WordController {
     }
 
     @PostMapping
-    public Word post(@RequestBody Word word){
-        return wordRepository.save(word);
+    public void post(@RequestBody Word word){
+        wordRepository.save(word);
     }
 
 }

@@ -36,6 +36,7 @@ bootJar {
 
 dependencies {
     testImplementation 'org.spockframework:spock-core:2.0-M4-groovy-3.0'
+    testImplementation 'org.spockframework:spock-spring:1.3-groovy-2.5'
     testImplementation "org.testcontainers:neo4j:1.15.3"
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.4.3'
     testImplementation 'org.neo4j.test:neo4j-harness-enterprise:3.4.18'

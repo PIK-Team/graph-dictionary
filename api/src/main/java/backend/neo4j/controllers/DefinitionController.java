@@ -27,8 +27,8 @@ public class DefinitionController {
     }
 
     @PostMapping
-    public Definition post(@RequestBody Definition definition){
-        return definitionRepository.save(definition);
+    public void post(@RequestBody Definition definition){
+        definitionRepository.save(definition);
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
