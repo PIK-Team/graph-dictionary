@@ -1,5 +1,5 @@
 import React from "react"
-import * as styles from "./labeled-input.module.css"
+import * as styles from "../styles/labeled-input_component.module.css"
 
 export default class LabeledInput extends React.Component {
 

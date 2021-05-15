@@ -4,9 +4,20 @@ body, #___gatsby, #gatsby-focus-wrapper {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow-x: hidden; 
+    overflow-x: hidden;
+    font-family: sans-serif;
 }
 
 div[role="group"][tabindex] {
     height: 100%;
+}
+
+input, textarea {
+    width: 100%;
+    display: block;
+    margin-bottom: 1em;
+}
+
+label {
+    font-size: 20px;
 }
