@@ -15,6 +15,8 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
+    "boostrap": "^2.0.0",
+    "bootstrap": "^5.0.1",
     "gatsby": "^3.0.1",
     "gatsby-image": "^3.5.0",
     "gatsby-link": "^3.5.0",
@@ -23,6 +25,7 @@
     "gatsby-source-multi-api": "^1.0.5",
     "gatsby-transformer-sharp": "^3.5.0",
     "react": "^17.0.1",
+    "react-bootstrap": "^1.6.0",
     "react-dom": "^17.0.1"
   }
 }
