@@ -43,8 +43,8 @@ public interface EntryRepository extends Repository<Entry, Long>
     @Query("MATCH (input: Entry) WHERE id(input) = $input_id\n" +
             "MATCH (parent: Entry) - [:CATEGORIZES] -> (input)\n" +
             "MATCH (parent) -[:CATEGORIZES] -> (related: Entry)\n" +
-            "OPTIONAL MATCH (related) - [relationship] -> (target)" +
             "WHERE NOT related = input\n" +
+            "OPTIONAL MATCH (related) - [relationship] -> (target)" +
             "OPTIONAL MATCH (target) - [subrelationship] -> (subtarget)\n" +
             "WHERE NOT target = input\n" +
             "RETURN  related, collect(relationship), collect(target), collect(subrelationship)")

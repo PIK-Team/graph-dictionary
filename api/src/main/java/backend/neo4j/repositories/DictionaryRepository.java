@@ -9,7 +9,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import java.util.Collection;
 
 @RepositoryRestResource(collectionResourceRel = "dictionaries", path="dictionaries")
-public interface DictionaryRepository extends Repository<Dictionary, Long>
+public interface DictionaryRepository extends Repository<Dictionary, String>
 {
     @Query("MATCH (dict: Dictionary) RETURN dict")
     Collection<Dictionary> getDictionaryListNoEntries();
@@ -17,4 +17,6 @@ public interface DictionaryRepository extends Repository<Dictionary, Long>
     Dictionary save(Dictionary dict);
 
     Collection<Dictionary> findAll();
+
+    Collection<Dictionary> getDictionaryByDictionaryName(String dictionaryName);
 }

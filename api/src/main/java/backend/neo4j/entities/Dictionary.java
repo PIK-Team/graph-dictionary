@@ -12,9 +12,6 @@ import java.util.List;
 public class Dictionary
 {
     @Id
-    @GeneratedValue
-    private Long id;
-
     private String dictionaryName;
     private String imageURI;
     private String description;

@@ -33,4 +33,9 @@ public class DictionaryController {
     public Collection<Dictionary> getDictionaryListNoEntries(){
         return dictionaryRepository.getDictionaryListNoEntries();
     }
+
+    @GetMapping("{name}/getByName")
+    public Collection<Dictionary> getDictionaryByName(@PathVariable String name) {
+        return dictionaryRepository.getDictionaryByDictionaryName(name);
+    }
 }
