@@ -23,6 +23,7 @@ public interface DefinitionRepository extends Repository<Definition, Long>
     void save(Definition definition);
     void deleteAll();
     void deleteDefinitionById(Long id);
+    void delete(Definition def);
 
 
 }

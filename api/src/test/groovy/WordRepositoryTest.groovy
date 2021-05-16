@@ -23,18 +23,23 @@ class WordRepositoryTest extends Specification {
 
     @Autowired private WordRepository wordRepository;
 
-    def "add TestAWord to the database"() {
+    def setup()
+    {
+        wordRepository.deleteAll();
+    }
+
+    def "check if able to add a word to the database and then retrieve it"() {
 
         when:
             Word word = new Word();
-            word.setWord("Tests-Word");
+            word.setWord("word");
             wordRepository.save(word);
 
         then:
             wordRepository.findAll().contains(word);
     }
 
-    def "add \"Tests-Five\" five times, see if returned only once"() {
+    def "add a word five times, see if no copies are present"() {
 
         when:
             Word word = new Word();
@@ -56,5 +61,17 @@ class WordRepositoryTest extends Specification {
             wordRepository.save(secondWord);
         then:
             wordRepository.findByWord(firstWord.getWord()).size() == 1;
+    }
+
+    def "delete existing word"(){
+
+        when:
+            Word word = new Word();
+            word.setWord("Test");
+            wordRepository.save(word);
+            wordRepository.delete(word);
+
+        then:
+            wordRepository.findAll().isEmpty();
     }
 }

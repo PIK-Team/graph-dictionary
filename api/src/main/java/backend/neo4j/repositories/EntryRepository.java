@@ -16,11 +16,11 @@ import java.util.Collection;
 public interface EntryRepository extends Repository<Entry, Long>
 {
     @Query("" +
-            "MATCH(word:Word{word: $inputWord})\n" +
-            "MATCH(definition: Definition{definition: $inputDefinition})\n" +
             "MATCH(parent: Entry) WHERE id(parent) = $parent_id "+
             "MATCH (dict: Dictionary {dictionaryName: $dictionary} )" +
-            "CREATE((entry:Entry) -[:MEANS]-> (definition) ) " +
+            "MERGE(word:Word{word: $inputWord})\n" +
+            "MERGE(definition: Definition{definition: $inputDefinition})\n" +
+            "MERGE((entry:Entry) -[:MEANS]-> (definition) ) " +
             "MERGE( (entry) -[:DEFINES]-> (word) )" +
             "MERGE( (parent) -[:CATEGORIZES]-> (entry) )" +
             "MERGE( (dict) -[:INCLUDES]-> (entry) )"
@@ -29,10 +29,10 @@ public interface EntryRepository extends Repository<Entry, Long>
                           @Param ("dictionary") String dictionary, @Param("parent_id") Long parent_id);
 
     @Query("" +
-            "MATCH(word:Word{word: $inputWord})\n" +
-            "MATCH(definition: Definition{definition: $inputDefinition})\n" +
             "MATCH (dict: Dictionary {dictionaryName: $dictionary} )" +
-            "CREATE((entry:Entry) -[:MEANS]-> (definition) ) " +
+            "MERGE(word:Word{word: $inputWord})\n" +
+            "MERGE(definition: Definition{definition: $inputDefinition})\n" +
+            "MERGE((entry:Entry) -[:MEANS]-> (definition) ) " +
             "MERGE( (entry) -[:DEFINES]-> (word) )"+
             "MERGE( (dict) -[:INCLUDES]-> (entry) )"
     )
