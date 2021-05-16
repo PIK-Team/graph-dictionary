@@ -5,6 +5,8 @@ import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 
+import java.util.Objects;
+
 @Node
 public class Definition
 {
@@ -27,5 +29,30 @@ public class Definition
     public void setDefinition(String definition)
     {
         this.definition = definition;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Definition that = (Definition) o;
+        return Objects.equals(id, that.id) && Objects.equals(getDefinition(), that.getDefinition());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(id, getDefinition());
+    }
+
+    public Long getId()
+    {
+        return id;
+    }
+
+    public void setId(Long id)
+    {
+        this.id = id;
     }
 }

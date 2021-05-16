@@ -20,7 +20,9 @@ public interface DefinitionRepository extends Repository<Definition, Long>
     Collection<Definition> test();
 
     Collection<Definition> findAll();
-
-
     void save(Definition definition);
+    void deleteAll();
+    void deleteDefinitionById(Long id);
+
+
 }

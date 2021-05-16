@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/definitions")
@@ -36,4 +37,13 @@ public class DefinitionController {
         return definitionRepository.test();
     }
 
+    @GetMapping("/deleteAll")
+    public void deleteAll(){
+        definitionRepository.deleteAll();
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public void deleteById(@RequestBody Map<String, Long> params){
+        definitionRepository.deleteDefinitionById(params.get("id"));
+    }
 }

@@ -19,4 +19,7 @@ public interface DictionaryRepository extends Repository<Dictionary, String>
     Collection<Dictionary> findAll();
 
     Collection<Dictionary> getDictionaryByDictionaryName(String dictionaryName);
+
+    void deleteAll();
+    void deleteDictionaryByDictionaryName(String name);
 }

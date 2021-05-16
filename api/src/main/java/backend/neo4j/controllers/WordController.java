@@ -32,4 +32,13 @@ public class WordController {
         wordRepository.save(word);
     }
 
+    @GetMapping("/deleteAll")
+    public void deleteAll() {
+        wordRepository.deleteAll();
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public void deleteByWord(@RequestBody Word word) {
+        wordRepository.delete(word);
+    }
 }

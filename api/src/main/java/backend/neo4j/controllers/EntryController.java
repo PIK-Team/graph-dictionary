@@ -39,12 +39,10 @@ public class EntryController {
     }
 
 
-
     @GetMapping("{id}/related")
     public Collection<Entry> getRelated(@PathVariable Long id){
         return entryRepository.getRelated(id);
     }
-
 
     @GetMapping("/findall")
     public Collection<Entry> myFindAll(){
@@ -54,6 +52,16 @@ public class EntryController {
     @GetMapping("{word}/findByWord")
     public Collection<Entry> findByWord(@PathVariable String word){
         return entryRepository.findByWord(word);
+    }
+
+    @GetMapping("/deleteAll")
+    void deleteAll() {
+        entryRepository.deleteAll();
+    }
+
+    @RequestMapping(value="/delete", method = RequestMethod.POST)
+    public void delete(@RequestBody Map<String, Long> params){
+        entryRepository.deleteEntryById(params.get("id"));
     }
 
 }

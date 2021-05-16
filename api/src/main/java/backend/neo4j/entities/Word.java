@@ -24,4 +24,19 @@ public class Word
     {
         this.word = word;
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Word word1 = (Word) o;
+        return Objects.equals(getWord(), word1.getWord());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(getWord());
+    }
 }

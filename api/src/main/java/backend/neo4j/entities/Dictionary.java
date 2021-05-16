@@ -7,6 +7,7 @@ import org.springframework.data.neo4j.core.schema.Relationship;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Node
 public class Dictionary
@@ -53,4 +54,19 @@ public class Dictionary
     public String getImageURI() { return imageURI; }
 
     public void setImageURI(String imageURI) { this.imageURI = imageURI; }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Dictionary that = (Dictionary) o;
+        return Objects.equals(getDictionaryName(), that.getDictionaryName()) && Objects.equals(getImageURI(), that.getImageURI()) && Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getEntries(), that.getEntries());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(getDictionaryName(), getImageURI(), getDescription(), getEntries());
+    }
 }

@@ -7,6 +7,7 @@ import org.springframework.data.neo4j.core.schema.Relationship;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Node
 public class Entry
@@ -52,5 +53,30 @@ public class Entry
     public void setDefinitions(List<Definition> definitions)
     {
         this.definitions = definitions;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Entry entry = (Entry) o;
+        return Objects.equals(id, entry.id) && Objects.equals(getWord(), entry.getWord()) && Objects.equals(getDefinitions(), entry.getDefinitions()) && Objects.equals(getSubentries(), entry.getSubentries());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(id, getWord(), getDefinitions(), getSubentries());
+    }
+
+    public Long getId()
+    {
+        return id;
+    }
+
+    public void setId(Long id)
+    {
+        this.id = id;
     }
 }

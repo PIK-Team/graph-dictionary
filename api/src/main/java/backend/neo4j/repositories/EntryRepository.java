@@ -1,5 +1,6 @@
 package backend.neo4j.repositories;
 
+import backend.neo4j.entities.Dictionary;
 import backend.neo4j.entities.Entry;
 import backend.neo4j.entities.Word;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
@@ -61,4 +62,8 @@ public interface EntryRepository extends Repository<Entry, Long>
             "MATCH (e)-[rel]->(target)\n" +
             "RETURN e, collect(rel), collect(target)")
     Collection<Entry> findByWord(@Param("word") String word);
+
+    void deleteAll();
+
+    void deleteEntryById(Long id);
 }

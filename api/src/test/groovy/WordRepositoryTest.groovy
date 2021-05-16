@@ -11,24 +11,50 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.neo4j.core.Neo4jClient
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
+import org.springframework.transaction.annotation.Transactional
 import org.testcontainers.containers.Neo4jContainer
 import spock.lang.Specification
 import org.neo4j.harness.ServerControls;
 import org.neo4j.harness.TestServerBuilders;
 
+@Transactional
 @SpringBootTest(classes=SpringApp.class)
 class WordRepositoryTest extends Specification {
 
     @Autowired private WordRepository wordRepository;
 
-    def "adding word to the database"() {
+    def "add TestAWord to the database"() {
 
         when:
             Word word = new Word();
-            word.setWord("Test");
+            word.setWord("Tests-Word");
             wordRepository.save(word);
 
         then:
-            wordRepository.findFirstByWord(word.getWord()).getWord().equals(word.getWord());
+            wordRepository.findAll().contains(word);
+    }
+
+    def "add \"Tests-Five\" five times, see if returned only once"() {
+
+        when:
+            Word word = new Word();
+            word.setWord("Tests-Five");
+            for(int i = 0; i < 5; ++i) wordRepository.save(word);
+
+        then:
+            wordRepository.findByWord(word.getWord()).findAll(w -> w.equals(word)).size()==1;
+    }
+
+    def "add different Word objects with the same ID, see if only one is returned"(){
+
+        when:
+            Word firstWord = new Word();
+            Word secondWord = new Word();
+            firstWord.setWord("Tests-same-Word");
+            secondWord.setWord("Tests-same-Word");
+            wordRepository.save(firstWord);
+            wordRepository.save(secondWord);
+        then:
+            wordRepository.findByWord(firstWord.getWord()).size() == 1;
     }
 }
