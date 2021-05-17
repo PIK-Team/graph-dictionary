@@ -5,7 +5,7 @@ const SubpageHeader = ({subpageName}) => {
 	return (
 		<div className={subpageHeaderStyle.wrapper}>
 			<span className={subpageHeaderStyle.name}>
-				subpageName
+				{subpageName}
 			</span>
 		</div>
 	)
