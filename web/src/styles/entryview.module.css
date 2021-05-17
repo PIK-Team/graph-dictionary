@@ -1,0 +1,11 @@
+.entryViewList {
+	list-style-type: square;
+}
+.entryViewList a {
+	text-decoration: none;
+	color: #000;
+}
+
+.entryViewList a:hover {
+	color: #5BC0DE;
+}
