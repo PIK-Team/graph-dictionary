@@ -18,7 +18,7 @@ const Footer = () => {
 			nazwisko: "Frątczak"
 		},
 				{
-			imie: "Piotr",
+			imie: "Paweł",
 			nazwisko: "Budniak"
 		}
 	]
