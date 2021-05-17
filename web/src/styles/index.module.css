@@ -1,12 +1,13 @@
 .indexButton {
 	width: 300px;
 	height: 60px;
-	line-height: 60px;
+	line-height: 52px;
 	color: #494949 !important;
 	text-transform: uppercase;
 	text-decoration: none;
 	background: rgba(192,192,192, 0.5);
-	padding: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
 	border: 4px solid #494949 !important;
 	display: inline-block;
 	transition: all 0.4s ease 0s;
