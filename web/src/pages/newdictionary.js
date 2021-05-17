@@ -37,15 +37,27 @@ export default class NewDictionary extends React.Component {
 					<form className={`form-horizontal ${formStyle.forms}`} onSubmit={this.handleSubmit}>
 						<div className={`form-group ${formStyle.groupForms}`}>
 							<label className={`control-label ${formStyle.labelForms}`}>Nazwa słownika:</label>
-							<input type="text" className={`form-control $formStyle.textInputForms}`} name="dictionaryName" value={this.state.dictionaryName} onChange={this.handleInputChange}/>
+							<input className={`form-control $formStyle.textInputForms}`}
+								type="text" 
+								name="dictionaryName" 
+								value={this.state.dictionaryName} 
+								onChange={this.handleInputChange}/>
 						</div>
 						<div className={`form-group ${formStyle.groupForms}`}>
 							<label className={`control-label ${formStyle.labelForms}`}>Opis: </label>
-							<textarea className={`form-control $formStyle.textInputForms}`} name="dictionaryDesc" value={this.state.dictionaryDesc} onChange={this.handleInputChange}> </textarea>
+							<textarea className={`form-control $formStyle.textInputForms}`} 
+								type="text"
+								name="dictionaryDesc" 
+								value={this.state.dictionaryDesc} 
+								onChange={this.handleInputChange}/>
 						</div>
 						<div className={`form-group ${formStyle.groupForms}`}>
 							<label className={`control-label ${formStyle.labelForms}`}> URL Logo:</label>
-							<input className={`form-control $formStyle.textInputForms}`} value={this.state.dictionaryLogoUrl} onChange={this.handleInputChange} type="text" name="dictionaryLogoUrl" />
+							<input className={`form-control $formStyle.textInputForms}`}
+								type="text" 
+								name="dictionaryLogoUrl"
+								value={this.state.dictionaryLogoUrl} 
+								onChange={this.handleInputChange}/>
 						</div>
 						<div className={`form-group ${formStyle.groupForms} ${formStyle.buttonGroupForm}`}>
 							<button type="submit" className={`btn btn-primary ${formStyle.buttonSubmitForms}`}>Dodaj</button>
@@ -55,5 +67,5 @@ export default class NewDictionary extends React.Component {
 				<Footer></Footer>
 			</Container>
 		)
-  }
+    }
 }
