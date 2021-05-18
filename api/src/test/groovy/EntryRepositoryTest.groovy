@@ -10,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
 import spock.lang.Specification
 
+import java.util.stream.Collectors
+
 @Transactional
 @SpringBootTest(classes=SpringApp.class)
 class EntryRepositoryTest extends Specification {
@@ -43,21 +45,45 @@ class EntryRepositoryTest extends Specification {
         dict.setDictionaryName("Dictionary");
         dictionaryRepository.save(dict);
         entryRepository.defineRootEntry("Word", "Definition", "Dictionary");
-        Long id = entryRepository.findByWord("Word")[0].getId();
-        entryRepository.defineChildEntry("SecondWord", "SecondDefinition", "Dictionary", id);
+        entryRepository.defineChildEntry("SecondWord", "SecondDefinition", "Dictionary", "Word");
         then:
-        entryRepository.findByWord("Word")[0].getSubentries().size()==1;
+        entryRepository.findByWord("Word", "Dictionary").getSubentries().size()==1;
     }
 
-    def "Create a root entry, then create it's child, see if child has been added to parent"() {
+    def "Find an entry by word and dictionary"()
+    {
         when:
+        String dictionary = "Dictionary";
+        String definition = "Definition";
+        String word = "Word";
+
         Dictionary dict = new Dictionary();
-        dict.setDictionaryName("Dictionary");
+        dict.setDictionaryName(dictionary);
+
+
         dictionaryRepository.save(dict);
-        entryRepository.defineRootEntry("Word", "Definition", "Dictionary");
-        Long id = entryRepository.findByWord("Word")[0].getId();
-        entryRepository.defineChildEntry("SecondWord", "SecondDefinition", "Dictionary", id);
+        entryRepository.defineRootEntry(word, definition, dictionary);
+
         then:
-        entryRepository.findByWord("Word")[0].getSubentries().size()==1;
+        entryRepository.findByWord(word, dictionary).getWord().getWord()==word;
+    }
+
+    def "Check if no definition"()
+    {
+        when:
+        String dictionary = "Dictionary";
+        String definition = "Definition";
+        String word = "Word";
+
+        Dictionary dict = new Dictionary();
+        dict.setDictionaryName(dictionary);
+
+        dictionaryRepository.save(dict);
+
+        entryRepository.defineRootEntry(word, definition, dictionary);
+
+        then:
+
+        entryRepository.findByWordNoRelationships(dictionary, word).getDefinitions().isEmpty();
     }
 }

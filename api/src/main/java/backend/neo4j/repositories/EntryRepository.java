@@ -16,6 +16,8 @@ import java.util.List;
 @RepositoryRestResource(collectionResourceRel = "entries", path = "entries")
 public interface EntryRepository extends Repository<Entry, Long>
 {
+
+    /* NEEDED */
     @Query("MATCH(parent: Entry) -[:DEFINES]-> (Word{word: $parentWord})\n" +
             "MATCH (dict: Dictionary {dictionaryName: $dictionary} )\n" +
             "MERGE(word:Word{word: $inputWord})\n" +
@@ -29,6 +31,7 @@ public interface EntryRepository extends Repository<Entry, Long>
                           @Param ("dictionary") String dictionary, @Param("parentWord") String parentWord);
 
 
+    /* NEEDED */
     @Query("" +
             "MATCH (dict: Dictionary {dictionaryName: $dictionary} )" +
             "MERGE(word:Word{word: $inputWord})\n" +
@@ -43,8 +46,8 @@ public interface EntryRepository extends Repository<Entry, Long>
 
     // Te zapytania nie pobieraja zwiazkow glebszych niz 1
     // na razie nie potrzebne
-    @Query(" MATCH(Dictionary{dictionaryName: $dictionaryName}) -[:INCLUDES]-> (e: Entry)\n" +
-            "MATCH (input: Entry) WHERE id(input) = $input_id\n" +
+    @Query(" MATCH(Dictionary{dictionaryName: $dictionaryName}) -[:INCLUDES]-> (input: Entry)\n" +
+            "MATCH (input) -[:DEFINES]-> (Word{word:$word})" +
             "MATCH (parent: Entry) - [:CATEGORIZES] -> (input)\n" +
             "MATCH (parent) -[:CATEGORIZES] -> (related: Entry)\n" +
             "WHERE NOT related = input\n" +
@@ -52,8 +55,7 @@ public interface EntryRepository extends Repository<Entry, Long>
             "OPTIONAL MATCH (target) - [subrelationship] -> (subtarget)\n" +
             "WHERE NOT target = input\n" +
             "RETURN  related, collect(relationship), collect(target), collect(subrelationship)")
-    Collection<Entry> getRelated(@Param("word") String word, @Param("dictionaryName") String dictionaryName); // do zmiany
-
+    Collection<Entry> getRelated(@Param("word") String word, @Param("dictionaryName") String dictionaryName);
 
     @Query("MATCH (e: Entry)" +
             "OPTIONAL MATCH (e)-[relationship]->(child)" +
@@ -62,15 +64,26 @@ public interface EntryRepository extends Repository<Entry, Long>
 
     Collection<Entry> findAll();
 
-
+    /**
+     *
+     * @param word
+     * @param dictionaryName
+     * @return
+     */
     @Query(" MATCH(Dictionary{dictionaryName: $dictionaryName}) -[:INCLUDES]-> (e: Entry)\n" +
             "MATCH (e: Entry)-[:DEFINES]->(w: Word{word : $word})\n" +
             "MATCH (e)-[rel]->(target)\n" +
             "RETURN e, collect(rel), collect(target)")
-    List<Entry> findByWord(@Param("word") String word, @Param("dictionaryName") String dictionaryName);
+    Entry findByWord(@Param("word") String word, @Param("dictionaryName") String dictionaryName);
 
+    /**
+     *
+     * @param dictName
+     * @param entryName
+     * @return
+     */
     @Query("MATCH(Dictionary{dictionaryName: $dictName}) -[:INCLUDES]-> (e: Entry)" +
-            "MATCH (e: Entry)-[:DEFINES]->(w: Word{word : $entryName})\n" +
+            "MATCH (e)-[:DEFINES]->(w: Word{word : $entryName})\n" +
             "RETURN e")
     Entry findByWordNoRelationships(@Param("dictName") String dictName, @Param("entryName") String entryName);
 
@@ -80,15 +93,22 @@ public interface EntryRepository extends Repository<Entry, Long>
             "MATCH(e) -[:DEFINES]-> (word: Word{word: $entryName})\n" +
             "MATCH(e) -[:MEANS] -> (def: Definition)\n" +
             "OPTIONAL MATCH(e) -[:CATEGORIZES]-> (child: Entry)\n" +
+            "OPTIONAL MATCH(child) -[word_rel:DEFINES]-> (word: Word)\n" +
             "OPTIONAL MATCH(child) -[child_word_rel:DEFINES]-> (child_word)\n" +
             "OPTIONAL MATCH(parent: Entry) -[parent_rel:CATEGORIZES *1..]-> (e)\n" +
             "MATCH(parent) -[parent_word_rel:DEFINES]-> (parent_word)\n" +
-            "RETURN  collect(parent), collect(parent_rel), collect(e), collect(parent_word_rel), collect(parent_word)")
+            "RETURN  collect(parent), collect(parent_rel), collect(word_rel), collect(e), collect(parent_word_rel), collect(parent_word)")
         //"RETURN e, word, collect(def), collect(child), collect(child_word_rel), collect(child_word),collect(parent), collect(parent_word_rel), collect(parent_word)")
     //e, word, collect(def), collect(child), collect(child_word_rel), collect(child_word),
     Collection<Entry> entryOverview(@Param("dictName") String dictName, @Param("entryName") String entryName);
 
 
+    /**
+     *
+     * @param dictName
+     * @param entryName
+     * @return
+     */
     @Query("     MATCH(Dictionary{dictionaryName: $dictName}) -[:INCLUDES]-> (e: Entry)\n" +
             "    MATCH(e) -[:DEFINES]-> (word: Word{word: $entryName})\n" +
             "    MATCH(parent: Entry) -[:CATEGORIZES]-> (e)\n" +
@@ -97,6 +117,12 @@ public interface EntryRepository extends Repository<Entry, Long>
     public Entry getParentWordOnly(@Param("dictName") String dictName, @Param("entryName") String entryName);
 
 
+    /**
+     *
+     * @param dictName
+     * @param entryName
+     * @return
+     */
     @Query("    MATCH(Dictionary{dictionaryName: $dictName}) -[:INCLUDES]-> (e: Entry)\n" +
             "    MATCH(e) -[:DEFINES]-> (word: Word{word: $entryName})\n" +
             "    MATCH(e) -[:CATEGORIZES]-> (child: Entry)\n" +

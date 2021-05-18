@@ -59,7 +59,7 @@ public class EntryController {
     }
 
     @GetMapping("{word}/{dictionary}/findByWord")
-    public List<Entry> findByWord(@PathVariable String word, @PathVariable String dictionary){
+    public Entry findByWord(@PathVariable String word, @PathVariable String dictionary){
         return entryRepository.findByWord(word, dictionary);
     }
 
@@ -75,7 +75,7 @@ public class EntryController {
         Entry parent;
 
         List<Entry> children = entryRepository.getChildrenWordsOnly(dictName, entryName);
-        currentEntry = findByWord(entryName, dictName).get(0);
+        currentEntry = findByWord(entryName, dictName);
         currentEntry.setSubentries(children);
 
         while ((parent = entryRepository.getParentWordOnly(dictName, currentEntry.getWord().getWord())) != null){
