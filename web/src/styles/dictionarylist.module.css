@@ -8,14 +8,15 @@
     background-color: rgb(183 217 232);
     height: 120px;
     color: black;
-    z-index: 1;
 }
 
 .list {
     width: 80%;
     margin-top: 40px;
+    margin-bottom: 60px;
     display: flex;
     flex-direction: column;
+    overflow: scroll;
 }
 
 .dictName {
@@ -31,10 +32,16 @@
     justify-content: center;
     align-items: center;
     flex-wrap: nowrap;
-    text-decoration: none;
 } 
 
-.overlay {
-    z-index: 20;
-    background-color: aquamarine;
+.row:hover {
+    background-color: rgb(127, 255, 249);
+}
+.row:hover .dictName {
+    background-color: rgb(140, 170, 169);
+    color: rgb(65, 70, 69);
+}
+
+a:link{
+    text-decoration: none !important;
 }
