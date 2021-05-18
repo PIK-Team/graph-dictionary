@@ -1,0 +1,40 @@
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    background-color: rgb(183 217 232);
+    height: 120px;
+    color: black;
+    z-index: 1;
+}
+
+.list {
+    width: 80%;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dictName {
+    width: 300px;
+    height: 100%;
+    padding: 40px;
+    font-weight: bold;
+    font-size: 20px;
+    background-color: #447983;
+    color: #eaeaea;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    text-decoration: none;
+} 
+
+.overlay {
+    z-index: 20;
+    background-color: aquamarine;
+}
