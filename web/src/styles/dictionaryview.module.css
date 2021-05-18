@@ -1,0 +1,38 @@
+.mainColumn {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin-left: 250px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+}
+
+.category {
+    margin-right: 50px;
+	font-weight: bold;
+    text-align: left;
+}
+
+.description {
+    text-align: center;
+    width: 100%;
+    padding-right: 90px;
+}
+
+.dictName {
+    width: 100%;
+    padding-right: 100px;
+    text-align: center;
+    font-size: 30px;
+}
+
+.dictNameRow {
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+    align-items: center;
+}
