@@ -16,18 +16,17 @@ import java.util.List;
 @RepositoryRestResource(collectionResourceRel = "entries", path = "entries")
 public interface EntryRepository extends Repository<Entry, Long>
 {
-    @Query("" +
-            "MATCH(parent: Entry) WHERE id(parent) = $parent_id "+
-            "MATCH (dict: Dictionary {dictionaryName: $dictionary} )" +
+    @Query("MATCH(parent: Entry) -[:DEFINES]-> (Word{word: $parentWord})\n" +
+            "MATCH (dict: Dictionary {dictionaryName: $dictionary} )\n" +
             "MERGE(word:Word{word: $inputWord})\n" +
             "MERGE(definition: Definition{definition: $inputDefinition})\n" +
-            "MERGE((entry:Entry) -[:MEANS]-> (definition) ) " +
-            "MERGE( (entry) -[:DEFINES]-> (word) )" +
-            "MERGE( (parent) -[:CATEGORIZES]-> (entry) )" +
+            "MERGE((entry:Entry) -[:MEANS]-> (definition) )\n" +
+            "MERGE( (entry) -[:DEFINES]-> (word) )\n" +
+            "MERGE( (parent) -[:CATEGORIZES]-> (entry) )\n" +
             "MERGE( (dict) -[:INCLUDES]-> (entry) )"
     )
     void defineChildEntry(@Param("inputWord") String inputWord, @Param("inputDefinition") String inputDefinition,
-                          @Param ("dictionary") String dictionary, @Param("parent_id") Long parent_id);
+                          @Param ("dictionary") String dictionary, @Param("parentWord") String parentWord);
 
     @Query("" +
             "MATCH (dict: Dictionary {dictionaryName: $dictionary} )" +
@@ -59,10 +58,16 @@ public interface EntryRepository extends Repository<Entry, Long>
 
     Collection<Entry> findAll();
 
+    //TODO: add dict param
     @Query("MATCH (e: Entry)-[:DEFINES]->(w: Word{word : $word})\n" +
             "MATCH (e)-[rel]->(target)\n" +
             "RETURN e, collect(rel), collect(target)")
     List<Entry> findByWord(@Param("word") String word);
+
+    @Query("MATCH(Dictionary{dictionaryName: $dictName}) -[:INCLUDES]-> (e: Entry)" +
+            "MATCH (e: Entry)-[:DEFINES]->(w: Word{word : $entryName})\n" +
+            "RETURN e")
+    Entry findByWordNoRelationships(@Param("dictName") String dictName, @Param("entryName") String entryName);
 
 
     // nie dziala :)

@@ -48,4 +48,16 @@ class EntryRepositoryTest extends Specification {
         then:
         entryRepository.findByWord("Word")[0].getSubentries().size()==1;
     }
+
+    def "Create a root entry, then create it's child, see if child has been added to parent"() {
+        when:
+        Dictionary dict = new Dictionary();
+        dict.setDictionaryName("Dictionary");
+        dictionaryRepository.save(dict);
+        entryRepository.defineRootEntry("Word", "Definition", "Dictionary");
+        Long id = entryRepository.findByWord("Word")[0].getId();
+        entryRepository.defineChildEntry("SecondWord", "SecondDefinition", "Dictionary", id);
+        then:
+        entryRepository.findByWord("Word")[0].getSubentries().size()==1;
+    }
 }

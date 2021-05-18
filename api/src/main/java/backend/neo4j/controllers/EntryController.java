@@ -3,6 +3,8 @@ package backend.neo4j.controllers;
 import backend.neo4j.entities.Entry;
 import backend.neo4j.repositories.EntryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -25,11 +27,19 @@ public class EntryController {
      * curl -i -X POST -H "Content-Type:application/json" -d '{"word" : "testura", "definition": "very strong testing situation"}' http://localhost:9090/entries2/define
      */
     @RequestMapping(value = "/define", method = RequestMethod.POST)
-    public void define(@RequestBody Map<String, String> params) {
+    @ResponseBody
+    public ResponseEntity define(@RequestBody Map<String, String> params) {
+
+        // if word already exists in the specified dictionary return error
+        if (entryRepository.findByWordNoRelationships(params.get("word"),  params.get("dictionary")) != null)
+            return new ResponseEntity(HttpStatus.CONFLICT);
+
         if (params.get("parent_entry") != null)
-            entryRepository.defineChildEntry(params.get("word"), params.get("definition"), params.get("dictionary") ,Long.parseLong(params.get("parent_entry")));
+            entryRepository.defineChildEntry(params.get("word"), params.get("definition"), params.get("dictionary") ,params.get("parent_entry"));
         else
             entryRepository.defineRootEntry(params.get("word"), params.get("definition"), params.get("dictionary"));
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping
