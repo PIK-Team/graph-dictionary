@@ -30,14 +30,19 @@ public class EntryController {
     @ResponseBody
     public ResponseEntity define(@RequestBody Map<String, String> params) {
 
+        String word_param = "word";
+        String dictionary_param = "dictionary";
+        String parent_param = "parent_entry";
+        String definition_param = "definition";
+
         // if word already exists in the specified dictionary return error
-        if (entryRepository.findByWordNoRelationships(params.get("word"),  params.get("dictionary")) != null)
+        if (entryRepository.findByWordNoRelationships(params.get(dictionary_param),  params.get(word_param)) != null)
             return new ResponseEntity(HttpStatus.CONFLICT);
 
-        if (params.get("parent_entry") != null)
-            entryRepository.defineChildEntry(params.get("word"), params.get("definition"), params.get("dictionary") ,params.get("parent_entry"));
+        if (params.get(parent_param) != null)
+            entryRepository.defineChildEntry(params.get(word_param), params.get(definition_param), params.get(dictionary_param) ,params.get(parent_param));
         else
-            entryRepository.defineRootEntry(params.get("word"), params.get("definition"), params.get("dictionary"));
+            entryRepository.defineRootEntry(params.get(word_param), params.get(definition_param), params.get(dictionary_param));
 
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -48,7 +53,7 @@ public class EntryController {
     }
 
 
-    @GetMapping("{word}/{dictionary}/related")
+    @GetMapping("{dictionary}/{word}/related")
     public Collection<Entry> getRelated(@PathVariable String word, @PathVariable String dictionary){
         return entryRepository.getRelated(word, dictionary);
     }
@@ -95,6 +100,12 @@ public class EntryController {
     @RequestMapping(value="/delete", method = RequestMethod.POST)
     public void delete(@RequestBody Map<String, Long> params){
         entryRepository.deleteEntryById(params.get("id"));
+    }
+
+    @GetMapping("{dictName}/{entryName}/testfind")
+    public Entry testfind(@PathVariable String dictName, @PathVariable String entryName) {
+
+        return entryRepository.findByWordNoRelationships(dictName, entryName);
     }
 
 }

@@ -14,64 +14,64 @@ import org.springframework.test.context.DynamicPropertySource
 import org.springframework.transaction.annotation.Transactional
 import org.testcontainers.containers.Neo4jContainer
 import spock.lang.Specification
-import org.neo4j.harness.ServerControls;
-import org.neo4j.harness.TestServerBuilders;
+import org.neo4j.harness.ServerControls
+import org.neo4j.harness.TestServerBuilders
 
 @Transactional
 @SpringBootTest(classes=SpringApp.class)
 class WordRepositoryTest extends Specification {
 
-    @Autowired private WordRepository wordRepository;
+    @Autowired private WordRepository wordRepository
 
     def setup()
     {
-        wordRepository.deleteAll();
+        wordRepository.deleteAll()
     }
 
     def "check if able to add a word to the database and then retrieve it"() {
 
         when:
-            Word word = new Word();
-            word.setWord("word");
-            wordRepository.save(word);
+            Word word = new Word()
+            word.setWord("word")
+            wordRepository.save(word)
 
         then:
-            wordRepository.findAll().contains(word);
+            wordRepository.findAll().contains(word)
     }
 
     def "add a word five times, see if no copies are present"() {
 
         when:
-            Word word = new Word();
-            word.setWord("Tests-Five");
-            for(int i = 0; i < 5; ++i) wordRepository.save(word);
+            Word word = new Word()
+            word.setWord("Tests-Five")
+            for(int i = 0; i < 5; ++i) wordRepository.save(word)
 
         then:
-            wordRepository.findByWord(word.getWord()).findAll(w -> w.equals(word)).size()==1;
+            wordRepository.findByWord(word.getWord()).findAll(w -> w.equals(word)).size()==1
     }
 
     def "add different Word objects with the same ID, see if only one is returned"(){
 
         when:
-            Word firstWord = new Word();
-            Word secondWord = new Word();
-            firstWord.setWord("Tests-same-Word");
-            secondWord.setWord("Tests-same-Word");
-            wordRepository.save(firstWord);
-            wordRepository.save(secondWord);
+            Word firstWord = new Word()
+            Word secondWord = new Word()
+            firstWord.setWord("Tests-same-Word")
+            secondWord.setWord("Tests-same-Word")
+            wordRepository.save(firstWord)
+            wordRepository.save(secondWord)
         then:
-            wordRepository.findByWord(firstWord.getWord()).size() == 1;
+            wordRepository.findByWord(firstWord.getWord()).size() == 1
     }
 
     def "delete existing word"(){
 
         when:
-            Word word = new Word();
-            word.setWord("Test");
-            wordRepository.save(word);
-            wordRepository.delete(word);
+            Word word = new Word()
+            word.setWord("Test")
+            wordRepository.save(word)
+            wordRepository.delete(word)
 
         then:
-            wordRepository.findAll().isEmpty();
+            wordRepository.findAll().isEmpty()
     }
 }
