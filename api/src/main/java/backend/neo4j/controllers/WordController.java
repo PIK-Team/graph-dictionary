@@ -41,4 +41,5 @@ public class WordController {
     public void deleteByWord(@RequestBody Word word) {
         wordRepository.delete(word);
     }
+
 }

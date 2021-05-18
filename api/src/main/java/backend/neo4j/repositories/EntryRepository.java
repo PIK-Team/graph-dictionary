@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.Collection;
+import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "entries", path = "entries")
 public interface EntryRepository extends Repository<Entry, Long>
@@ -61,7 +62,39 @@ public interface EntryRepository extends Repository<Entry, Long>
     @Query("MATCH (e: Entry)-[:DEFINES]->(w: Word{word : $word})\n" +
             "MATCH (e)-[rel]->(target)\n" +
             "RETURN e, collect(rel), collect(target)")
-    Collection<Entry> findByWord(@Param("word") String word);
+    List<Entry> findByWord(@Param("word") String word);
+
+
+    // nie dziala :)
+    @Query("MATCH(Dictionary{dictionaryName: $dictName}) -[:INCLUDES]-> (e: Entry)\n" +
+            "MATCH(e) -[:DEFINES]-> (word: Word{word: $entryName})\n" +
+            "MATCH(e) -[:MEANS] -> (def: Definition)\n" +
+            "OPTIONAL MATCH(e) -[:CATEGORIZES]-> (child: Entry)\n" +
+            "OPTIONAL MATCH(child) -[child_word_rel:DEFINES]-> (child_word)\n" +
+            "OPTIONAL MATCH(parent: Entry) -[parent_rel:CATEGORIZES *1..]-> (e)\n" +
+            "MATCH(parent) -[parent_word_rel:DEFINES]-> (parent_word)\n" +
+            "RETURN  collect(parent), collect(parent_rel), collect(e), collect(parent_word_rel), collect(parent_word)")
+        //"RETURN e, word, collect(def), collect(child), collect(child_word_rel), collect(child_word),collect(parent), collect(parent_word_rel), collect(parent_word)")
+    //e, word, collect(def), collect(child), collect(child_word_rel), collect(child_word),
+    Collection<Entry> entryOverview(@Param("dictName") String dictName, @Param("entryName") String entryName);
+
+
+    @Query("     MATCH(Dictionary{dictionaryName: $dictName}) -[:INCLUDES]-> (e: Entry)\n" +
+            "    MATCH(e) -[:DEFINES]-> (word: Word{word: $entryName})\n" +
+            "    MATCH(parent: Entry) -[:CATEGORIZES]-> (e)\n" +
+            "    MATCH(parent) -[word_rel:DEFINES]-> (parent_word)\n" +
+            "    RETURN parent, collect(word_rel), collect(parent_word)")
+    public Entry getParentWordOnly(@Param("dictName") String dictName, @Param("entryName") String entryName);
+
+
+    @Query("    MATCH(Dictionary{dictionaryName: $dictName}) -[:INCLUDES]-> (e: Entry)\n" +
+            "    MATCH(e) -[:DEFINES]-> (word: Word{word: $entryName})\n" +
+            "    MATCH(e) -[:CATEGORIZES]-> (child: Entry)\n" +
+            "    MATCH(child) -[def:DEFINES]-> (child_word)\n" +
+            "    RETURN child, collect(def), collect(child_word)")
+    public List<Entry> getChildrenWordsOnly(@Param("dictName") String dictName, @Param("entryName") String entryName);
+
+
 
     void deleteAll();
 

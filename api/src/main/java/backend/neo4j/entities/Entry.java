@@ -55,6 +55,8 @@ public class Entry
         this.definitions = definitions;
     }
 
+    public boolean addEntry(Entry entry){ return this.subentries.add(entry); }
+
     @Override
     public boolean equals(Object o)
     {

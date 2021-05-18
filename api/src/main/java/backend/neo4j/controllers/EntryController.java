@@ -1,13 +1,12 @@
 package backend.neo4j.controllers;
 
-import backend.neo4j.entities.Dictionary;
 import backend.neo4j.entities.Entry;
-import backend.neo4j.repositories.DictionaryRepository;
 import backend.neo4j.repositories.EntryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -50,7 +49,7 @@ public class EntryController {
     }
 
     @GetMapping("{word}/findByWord")
-    public Collection<Entry> findByWord(@PathVariable String word){
+    public List<Entry> findByWord(@PathVariable String word){
         return entryRepository.findByWord(word);
     }
 
@@ -58,6 +57,32 @@ public class EntryController {
     void deleteAll() {
         entryRepository.deleteAll();
     }
+
+    @GetMapping("{dictName}/{entryName}/overview")
+    public Entry entryOverview(@PathVariable String dictName, @PathVariable String entryName) {
+
+        Entry currentEntry;
+        Entry parent;
+
+        List<Entry> children = entryRepository.getChildrenWordsOnly(dictName, entryName);
+        currentEntry = findByWord(entryName).get(0);
+        currentEntry.setSubentries(children);
+
+        while ((parent = entryRepository.getParentWordOnly(dictName, currentEntry.getWord().getWord())) != null){
+            parent.addEntry(currentEntry);
+            currentEntry = parent;
+        }
+
+        return currentEntry;
+    }
+
+    @GetMapping("{dictName}/{entryName}/parentword")
+    public Entry getParentWordOnly(@PathVariable String dictName, @PathVariable String entryName) {
+
+        return entryRepository.getParentWordOnly(dictName, entryName);
+    }
+
+
 
     @RequestMapping(value="/delete", method = RequestMethod.POST)
     public void delete(@RequestBody Map<String, Long> params){
