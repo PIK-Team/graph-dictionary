@@ -72,6 +72,16 @@ public class Entry
         return Objects.hash(id, getWord(), getDefinitions(), getSubentries());
     }
 
+    @Override
+    public String toString() {
+        return "Entry{" +
+                "id=" + id +
+                ", word=" + word +
+                ", definitions=" + definitions +
+                ", subentries=" + subentries +
+                '}';
+    }
+
     public Long getId()
     {
         return id;

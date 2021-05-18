@@ -41,10 +41,12 @@ public interface EntryRepository extends Repository<Entry, Long>
                          @Param ("dictionary") String dictionary);
 
 
+
+
     // Te zapytania nie pobieraja zwiazkow glebszych niz 1
     // na razie nie potrzebne
-    @Query(" MATCH(Dictionary{dictionaryName: $dictionaryName}) -[:INCLUDES]-> (e: Entry)\n" +
-            "MATCH (input: Entry) WHERE id(input) = $input_id\n" +
+    @Query(" MATCH(Dictionary{dictionaryName: $dictionaryName}) -[:INCLUDES]-> (input: Entry)\n" +
+            "MATCH (input) -[:DEFINES]-> (Word{word:$word})" +
             "MATCH (parent: Entry) - [:CATEGORIZES] -> (input)\n" +
             "MATCH (parent) -[:CATEGORIZES] -> (related: Entry)\n" +
             "WHERE NOT related = input\n" +
@@ -52,7 +54,7 @@ public interface EntryRepository extends Repository<Entry, Long>
             "OPTIONAL MATCH (target) - [subrelationship] -> (subtarget)\n" +
             "WHERE NOT target = input\n" +
             "RETURN  related, collect(relationship), collect(target), collect(subrelationship)")
-    Collection<Entry> getRelated(@Param("word") String word, @Param("dictionaryName") String dictionaryName); // do zmiany
+    Collection<Entry> getRelated(@Param("word") String word, @Param("dictionaryName") String dictionaryName);
 
 
     @Query("MATCH (e: Entry)" +
@@ -64,13 +66,16 @@ public interface EntryRepository extends Repository<Entry, Long>
 
 
     @Query(" MATCH(Dictionary{dictionaryName: $dictionaryName}) -[:INCLUDES]-> (e: Entry)\n" +
-            "MATCH (e: Entry)-[:DEFINES]->(w: Word{word : $word})\n" +
+            "MATCH (e)-[:DEFINES]->(w: Word{word : $word})\n" +
             "MATCH (e)-[rel]->(target)\n" +
             "RETURN e, collect(rel), collect(target)")
-    List<Entry> findByWord(@Param("word") String word, @Param("dictionaryName") String dictionaryName);
+    Entry findByWord(@Param("word") String word, @Param("dictionaryName") String dictionaryName);
+
+
+
 
     @Query("MATCH(Dictionary{dictionaryName: $dictName}) -[:INCLUDES]-> (e: Entry)" +
-            "MATCH (e: Entry)-[:DEFINES]->(w: Word{word : $entryName})\n" +
+            "MATCH (e)-[:DEFINES]->(w: Word{word : $entryName})\n" +
             "RETURN e")
     Entry findByWordNoRelationships(@Param("dictName") String dictName, @Param("entryName") String entryName);
 
