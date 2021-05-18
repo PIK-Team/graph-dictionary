@@ -48,9 +48,9 @@ public class EntryController {
     }
 
 
-    @GetMapping("{id}/related")
-    public Collection<Entry> getRelated(@PathVariable Long id){
-        return entryRepository.getRelated(id);
+    @GetMapping("{word}/{dictionary}/related")
+    public Collection<Entry> getRelated(@PathVariable String word, @PathVariable String dictionary){
+        return entryRepository.getRelated(word, dictionary);
     }
 
     @GetMapping("/findall")
@@ -58,9 +58,9 @@ public class EntryController {
         return entryRepository.myFindAll();
     }
 
-    @GetMapping("{word}/findByWord")
-    public List<Entry> findByWord(@PathVariable String word){
-        return entryRepository.findByWord(word);
+    @GetMapping("{word}/{dictionary}/findByWord")
+    public List<Entry> findByWord(@PathVariable String word, @PathVariable String dictionary){
+        return entryRepository.findByWord(word, dictionary);
     }
 
     @GetMapping("/deleteAll")
@@ -75,7 +75,7 @@ public class EntryController {
         Entry parent;
 
         List<Entry> children = entryRepository.getChildrenWordsOnly(dictName, entryName);
-        currentEntry = findByWord(entryName).get(0);
+        currentEntry = findByWord(entryName, dictName).get(0);
         currentEntry.setSubentries(children);
 
         while ((parent = entryRepository.getParentWordOnly(dictName, currentEntry.getWord().getWord())) != null){
@@ -91,8 +91,6 @@ public class EntryController {
 
         return entryRepository.getParentWordOnly(dictName, entryName);
     }
-
-
 
     @RequestMapping(value="/delete", method = RequestMethod.POST)
     public void delete(@RequestBody Map<String, Long> params){
