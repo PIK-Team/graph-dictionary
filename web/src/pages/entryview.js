@@ -34,10 +34,16 @@ const getThisEntryInfo = (entries, thisWord) => {
 								<li> {definitionObj.definition} </li>
 							))}
 							</ul>
-						</div> </div>: getThisEntryInfo(entries[0].subentries, thisWord) 
+						</div> </div> : getThisEntryInfo(entries[0].subentries, thisWord) 
 	)
 }
 
+
+const test = (thisWord) => {
+	return (
+		<div> {thisWord}  </div>
+	)
+}
 
 export default class NewDictionary extends React.Component {
 	
@@ -46,8 +52,17 @@ export default class NewDictionary extends React.Component {
 	dictionaryParam = this.values.dictionary
 	entryParam = this.values.entry
 	
+	state = {
+		entry: null
+	}
 
-	word = "word 1.2"
+	componentDidMount() {
+		fetch('http://localhost:9090/entries/'+this.dictionaryParam+'/'+this.entryParam+'/overview', {
+			method: 'GET',
+		})
+		.then(response => response.json())
+		.then(json => this.setState({entry:json}));
+	}
 	
 	API = {
 		"id": 193,
@@ -104,6 +119,10 @@ export default class NewDictionary extends React.Component {
 	
 	
 	render() {
+		const { entry } = this.state
+		
+		if ( entry === null) { return null }
+		
 		return(
 			<Container>
 				<Header></Header>
@@ -111,15 +130,17 @@ export default class NewDictionary extends React.Component {
 				<MainWrapper>
 				<div className={entryViewStyle.entryWrapper}>
 					<div className={entryViewStyle.entryInfo, entryViewStyle.entryWrapperElement}>
-
-						{ getThisEntryInfo([this.API], this.entryParam) }
+					
+							{ getThisEntryInfo([this.state.entry], this.entryParam) }
 							
 						<div className={indexStyle.indexButtonDiv}><Link to="#"  style={{width: "80%", fontSize: "10pt"}} className={indexStyle.indexButton}>Dodaj wpis potomny</Link></div>
 						
 					</div>
 					<div className={entryViewStyle.entryTree, entryViewStyle.entryWrapperElement}>
 						<div style={{marginBottom: "25px"}}> Drzewo wpisu: </div>
-						{showEntries([this.API], this.dictionaryParam, this.entryParam)}
+						
+								{showEntries([this.state.entry], this.dictionaryParam, this.entryParam) }
+						
 					</div>
 				</div>
 				</MainWrapper>
