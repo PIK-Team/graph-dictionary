@@ -17,6 +17,8 @@
     display: flex;
     flex-direction: column;
     overflow: scroll;
+	margin-left: auto;
+	margin-right:auto;
 }
 
 .dictName {
