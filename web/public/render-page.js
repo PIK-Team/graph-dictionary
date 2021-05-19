@@ -11350,6 +11350,7 @@ module.exports = withSideEffect;
 /***/ }),
 
 /***/ "react-dom/server":
+<<<<<<< HEAD
 /*!*********************************************************************************************!*\
   !*** external "/home/piotr/code/lab/graph-dictionary/web/node_modules/react-dom/server.js" ***!
   \*********************************************************************************************/
@@ -11357,10 +11358,20 @@ module.exports = withSideEffect;
 
 "use strict";
 module.exports = require("/home/piotr/code/lab/graph-dictionary/web/node_modules/react-dom/server.js");;
+=======
+/*!**************************************************************************************************************************!*\
+  !*** external "C:\\Users\\Maciej\\Desktop\\frontend\\qweqeq\\graph-dictionary\\web\\node_modules\\react-dom\\server.js" ***!
+  \**************************************************************************************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("C:\\Users\\Maciej\\Desktop\\frontend\\qweqeq\\graph-dictionary\\web\\node_modules\\react-dom\\server.js");;
+>>>>>>> develop
 
 /***/ }),
 
 /***/ "react":
+<<<<<<< HEAD
 /*!****************************************************************************************!*\
   !*** external "/home/piotr/code/lab/graph-dictionary/web/node_modules/react/index.js" ***!
   \****************************************************************************************/
@@ -11368,6 +11379,15 @@ module.exports = require("/home/piotr/code/lab/graph-dictionary/web/node_modules
 
 "use strict";
 module.exports = require("/home/piotr/code/lab/graph-dictionary/web/node_modules/react/index.js");;
+=======
+/*!*********************************************************************************************************************!*\
+  !*** external "C:\\Users\\Maciej\\Desktop\\frontend\\qweqeq\\graph-dictionary\\web\\node_modules\\react\\index.js" ***!
+  \*********************************************************************************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("C:\\Users\\Maciej\\Desktop\\frontend\\qweqeq\\graph-dictionary\\web\\node_modules\\react\\index.js");;
+>>>>>>> develop
 
 /***/ }),
 

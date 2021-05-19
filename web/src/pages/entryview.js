@@ -15,7 +15,7 @@ const showEntries = (entries, dictionary, thisWord) => {
 	return (
 		<ul className={entryViewStyle.entryViewList}>
 			{ entries.map(entry => (
-						<li> <Link to={`?dictionary=${dictionary}&entry=${ entry.word.word } `}> { entry.word.word == thisWord ? <span style={{fontWeight: "bold"}}> {entry.word.word} </span> :<span> {entry.word.word}</span> } </Link> {entry.subentries.length > 0 && showEntries(entry.subentries, dictionary, thisWord)} </li>
+						<li> <a href={`?dictionary=${ dictionary }&entry=${ entry.word.word }`}> { entry.word.word == thisWord ? <span style={{fontWeight: "bold"}}> {entry.word.word} </span> :<span> {entry.word.word}</span> } </a> {entry.subentries.length > 0 && showEntries(entry.subentries, dictionary, thisWord)} </li>
 					)
 				)
 			}
@@ -55,6 +55,8 @@ export default class NewDictionary extends React.Component {
 	state = {
 		entry: null
 	}
+	
+	
 
 	componentDidMount() {
 		fetch(process.env.API_URL+'entries/'+this.dictionaryParam+'/'+this.entryParam+'/overview', {
@@ -62,59 +64,6 @@ export default class NewDictionary extends React.Component {
 		})
 		.then(response => response.json())
 		.then(json => this.setState({entry:json}));
-	}
-	
-	API = {
-		"id": 193,
-		"word": {
-			"word": "testura89"
-		},
-		"definitions": [],
-		"subentries": [
-			{
-				"id": 192,
-				"word": {
-					"word": "word1"
-				},
-				"definitions": [],
-				"subentries": [
-					{
-						"id": 201,
-						"word": {
-							"word": "word 1.2"
-						},
-						"definitions": [
-							{
-								"id": 207,
-								"definition": "def4"
-							},
-							{
-								"id": 200,
-								"definition": "def3"
-							}
-						],
-						"subentries": [
-							{
-								"id": 210,
-								"word": {
-									"word": "word2.2"
-								},
-								"definitions": [],
-								"subentries": []
-							},
-							{
-								"id": 204,
-								"word": {
-									"word": "word2.1"
-								},
-								"definitions": [],
-								"subentries": []
-							}
-						]
-					}
-				]
-			}
-		]
 	}
 	
 	
