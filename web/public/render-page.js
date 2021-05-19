@@ -11350,24 +11350,24 @@ module.exports = withSideEffect;
 /***/ }),
 
 /***/ "react-dom/server":
-/*!**************************************************************************************!*\
-  !*** external "D:\\test\\graph-dictionary\\web\\node_modules\\react-dom\\server.js" ***!
-  \**************************************************************************************/
+/*!**************************************************************************************************************************!*\
+  !*** external "C:\\Users\\Maciej\\Desktop\\frontend\\qweqeq\\graph-dictionary\\web\\node_modules\\react-dom\\server.js" ***!
+  \**************************************************************************************************************************/
 /***/ ((module) => {
 
 "use strict";
-module.exports = require("D:\\test\\graph-dictionary\\web\\node_modules\\react-dom\\server.js");;
+module.exports = require("C:\\Users\\Maciej\\Desktop\\frontend\\qweqeq\\graph-dictionary\\web\\node_modules\\react-dom\\server.js");;
 
 /***/ }),
 
 /***/ "react":
-/*!*********************************************************************************!*\
-  !*** external "D:\\test\\graph-dictionary\\web\\node_modules\\react\\index.js" ***!
-  \*********************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** external "C:\\Users\\Maciej\\Desktop\\frontend\\qweqeq\\graph-dictionary\\web\\node_modules\\react\\index.js" ***!
+  \*********************************************************************************************************************/
 /***/ ((module) => {
 
 "use strict";
-module.exports = require("D:\\test\\graph-dictionary\\web\\node_modules\\react\\index.js");;
+module.exports = require("C:\\Users\\Maciej\\Desktop\\frontend\\qweqeq\\graph-dictionary\\web\\node_modules\\react\\index.js");;
 
 /***/ }),
 
