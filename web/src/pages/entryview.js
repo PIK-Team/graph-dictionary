@@ -57,7 +57,7 @@ export default class NewDictionary extends React.Component {
 	}
 
 	componentDidMount() {
-		fetch('http://localhost:9090/entries/'+this.dictionaryParam+'/'+this.entryParam+'/overview', {
+		fetch(process.env.API_URL+'entries/'+this.dictionaryParam+'/'+this.entryParam+'/overview', {
 			method: 'GET',
 		})
 		.then(response => response.json())
