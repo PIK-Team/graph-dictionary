@@ -121,7 +121,46 @@ export default class NewDictionary extends React.Component {
 	render() {
 		const { entry } = this.state
 		
-		if ( entry === null) { return null }
+		if ( this.entryParam == undefined || this.dictionaryParam == undefined)
+		{
+			return (
+				<Container>
+					<Header></Header>
+					<SubpageHeader subpageName="Wpis w słowniku"></SubpageHeader>
+					<MainWrapper>
+					<div className={entryViewStyle.entryWrapper}>
+						
+						<div>Należy podać oba parametry - dictionary oraz entry <br />
+						?dictionary=[nazwa_slownika]&entry=[wpis]</div>
+						
+					</div>
+					</MainWrapper>
+					<Footer></Footer>
+				</Container>
+
+			)
+		}
+		
+		if ( entry === null) { 
+		
+			return (
+				<Container>
+					<Header></Header>
+					<SubpageHeader subpageName="Wpis w słowniku"></SubpageHeader>
+					<MainWrapper>
+					<div className={entryViewStyle.entryWrapper}>
+						{console.log("Test")}
+						{console.log(this.entryParam)}
+						ŁADOWANIE
+						
+					</div>
+					</MainWrapper>
+					<Footer></Footer>
+				</Container>
+
+			)
+			
+		}
 		
 		return(
 			<Container>
