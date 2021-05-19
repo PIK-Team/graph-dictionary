@@ -10,7 +10,7 @@ export default class NewDictionary extends React.Component {
 	state = {
 		dictionaryName: "",
 		description: "",
-		imageURI: ""
+		imageURI: "",
 	}
 	
 	handleInputChange = event => {
@@ -24,15 +24,49 @@ export default class NewDictionary extends React.Component {
 	}
 	
 	handleSubmit = event => {
-		event.preventDefault()
+		event.preventDefault();
+		
+		let addedDic = document.getElementById("AddedDic");
+		addedDic.style.display="none";
+		
+		let ErrorAddedDic = document.getElementById("ErrorAddedDic");
+		ErrorAddedDic.style.display="none";
+		
+		let AddingDic = document.getElementById("AddingDic");
+		AddingDic.style.display="none";
+				
 		if (this.state.dictionaryName != "")
 		{
+			AddingDic.style.display="block";
 			fetch(process.env.API_URL+"/dictionaries", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
 				},
 				body: JSON.stringify(this.state)
+			})
+			.then(function(response) {
+				if (!response.ok)
+				{
+					throw Error(response.statusText);
+				}
+				
+				return response;
+			})
+			.then(response => response.json())
+			.then(json => {				
+				if (json.dictionaryName != this.state.dictionaryName)
+				{
+					throw Error("somethingwentwrong...");
+				}
+				
+				AddingDic.style.display="none";
+				addedDic.style.display="block";
+			})
+			.catch(error => {
+				console.log(error);
+				AddingDic.style.display="none";
+				ErrorAddedDic.style.display="block";
 			});
 		}
 		
@@ -44,6 +78,10 @@ export default class NewDictionary extends React.Component {
 				<Header></Header>
 				<SubpageHeader subpageName="Dodawanie nowego słownika"></SubpageHeader>
 				<MainWrapper>
+					<div id="AddingDic" style={{display: "none"}}>Trwa dodawanie słownika</div>
+					<div id="AddedDic" style={{display: "none"}}>Pomyślnie dodano nowy słownik</div>
+					<div id="ErrorAddedDic" style={{display: "none"}}>Nie udało się dodać słownika. Spróbuj ponownie</div>
+					
 					<form className={`form-horizontal ${formStyle.forms}`} onSubmit={this.handleSubmit}>
 						<div className={`form-group ${formStyle.groupForms}`}>
 							<label className={`control-label ${formStyle.labelForms}`}>Nazwa słownika:</label>
