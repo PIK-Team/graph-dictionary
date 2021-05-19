@@ -1,0 +1,30 @@
+.indexButton {
+	width: 300px;
+	height: 60px;
+	line-height: 52px;
+	color: #494949 !important;
+	text-transform: uppercase;
+	text-decoration: none;
+	background: rgba(192,192,192, 0.5);
+	padding-left: 10px;
+	padding-right: 10px;
+	border: 4px solid #494949 !important;
+	display: inline-block;
+	align-items: center;
+	transition: all 0.4s ease 0s;
+	font-size: 18pt;
+	font-weight: bold;
+}
+
+.indexButton:hover {
+	color: #ffffff !important;
+	background: #6495ED;
+	border-color: #6495ED !important;
+	transition: all 0.4s ease 0s;
+	cursor:pointer;
+}
+
+.indexButtonDiv {
+	text-align:center;
+	padding: 30px;
+}

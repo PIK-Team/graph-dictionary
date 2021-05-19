@@ -1,0 +1,28 @@
+.entryViewList {
+	list-style-type: square;
+}
+.entryViewList a {
+	text-decoration: none;
+	color: #000;
+}
+
+.entryViewList a:hover {
+	color: #5BC0DE;
+}
+
+.entryWrapper {
+	display:flex;
+	justify-content: center;
+	margin-top: 50px;
+}
+
+.entryWrapperElement {
+	max-width: 300px;
+	width: 100%;
+	left: 30;
+	right: 30;
+}
+
+.defName {
+	margin-bottom: 25px;
+}

@@ -1,24 +1,25 @@
 import React from "react"
+import {Link} from "gatsby"
 import Container from "../components/container"
-import { graphql } from 'gatsby';
+import Header from '../components/header'
+import SubpageHeader from '../components/subpageheader'
+import Footer from '../components/footer'
+import MainWrapper from '../components/mainwrapper'
+import * as indexStyle from '../styles/index.module.css'
 
-const HomePage = ({data}) => {
+const HomePage = () => {
   return (
     <Container>
-      <h1>Graph Dictionary</h1>
-      Rignt now we have a total of <b> {data.apiPeople.page.totalElements} </b> elements in our database :)
+		<Header></Header>
+		<SubpageHeader subpageName="Strona główna"></SubpageHeader>
+		<MainWrapper>
+			<div className={indexStyle.indexButtonDiv}><Link to="newdictionary" className={indexStyle.indexButton}>Stwórz słownik</Link></div>
+			<div className={indexStyle.indexButtonDiv}><Link to="dictionarylist" className={indexStyle.indexButton}>Lista słowników</Link></div>
+			
+		</MainWrapper>
+		<Footer></Footer>
     </Container>
   )
 }
-
-export const query = graphql`
-query MyQuery {
-  apiPeople {
-    page {
-      totalElements
-    }
-  }
-}
-`
 
 export default HomePage

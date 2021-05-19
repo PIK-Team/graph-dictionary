@@ -1,0 +1,25 @@
+.responseStyle {
+	display:block;
+	width: 90%;
+	height: 50px;
+	border: 2px solid;
+	line-height: 50px;
+	text-align: center;
+	margin: 20px auto;
+	display: none;
+}
+
+.addingDic {
+	border-color: rgb(255,215,0);
+	background-color: rgba(255,215,0, 0.5);
+}
+
+.addedDic {
+	border-color: rgb(90,193,142);
+	background-color: rgba(90,193,142, 0.5);
+}
+
+.errorAddedDic {
+	border-color: rgb(194,46,0);
+	background-color: rgba(194,46,0, 0.5);
+}
