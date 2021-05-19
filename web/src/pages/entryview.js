@@ -1,5 +1,6 @@
 import React from "react"
 import {Link} from "gatsby"
+import queryString from "query-string"
 import Container from "../components/container"
 import Header from '../components/header'
 import SubpageHeader from '../components/subpageheader'
@@ -14,7 +15,7 @@ const showEntries = (entries, dictionary, thisWord) => {
 	return (
 		<ul className={entryViewStyle.entryViewList}>
 			{ entries.map(entry => (
-						<li> <Link to={`dictionary/${ entry.word.word }/ `}> { entry.word.word == thisWord ? <span style={{fontWeight: "bold"}}> {entry.word.word} </span> :<span> {entry.word.word}</span> } </Link> {entry.subentries.length > 0 && showEntries(entry.subentries, thisWord)} </li>
+						<li> <Link to={`?dictionary=${dictionary}&entry=${ entry.word.word } `}> { entry.word.word == thisWord ? <span style={{fontWeight: "bold"}}> {entry.word.word} </span> :<span> {entry.word.word}</span> } </Link> {entry.subentries.length > 0 && showEntries(entry.subentries, dictionary, thisWord)} </li>
 					)
 				)
 			}
@@ -39,9 +40,16 @@ const getThisEntryInfo = (entries, thisWord) => {
 
 
 export default class NewDictionary extends React.Component {
+	
+	values = queryString.parse(this.props.location.search)
+	
+	dictionaryParam = this.values.dictionary
+	entryParam = this.values.entry
+	
+
 	word = "word 1.2"
 	
-	entry = {
+	API = {
 		"id": 193,
 		"word": {
 			"word": "testura89"
@@ -104,14 +112,14 @@ export default class NewDictionary extends React.Component {
 				<div className={entryViewStyle.entryWrapper}>
 					<div className={entryViewStyle.entryInfo, entryViewStyle.entryWrapperElement}>
 
-						{ getThisEntryInfo([this.entry], this.word) }
+						{ getThisEntryInfo([this.API], this.entryParam) }
 							
 						<div className={indexStyle.indexButtonDiv}><Link to="#"  style={{width: "80%", fontSize: "10pt"}} className={indexStyle.indexButton}>Dodaj wpis potomny</Link></div>
 						
 					</div>
 					<div className={entryViewStyle.entryTree, entryViewStyle.entryWrapperElement}>
 						<div style={{marginBottom: "25px"}}> Drzewo wpisu: </div>
-						{showEntries([this.entry], this.word)}
+						{showEntries([this.API], this.dictionaryParam, this.entryParam)}
 					</div>
 				</div>
 				</MainWrapper>
