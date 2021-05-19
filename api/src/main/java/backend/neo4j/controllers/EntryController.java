@@ -24,8 +24,10 @@ public class EntryController {
     }
 
     /**
+     * Add an entry do a dictionary
+     * Words need to be unique in a dictionary, so trying to add an already existing word will result in an error.
      * Called like this:
-     * curl -i -X POST -H "Content-Type:application/json" -d '{"word" : "testura", "definition": "very strong testing situation"}' http://localhost:9090/entries2/define
+     * curl -i -X POST -H "Content-Type:application/json" -d '{"word" : "myword", "definition": "mydef", "dictionary": "mydict"}' http://localhost:9090/entries/define
      */
     @RequestMapping(value = "/define", method = RequestMethod.POST)
     @ResponseBody
@@ -54,6 +56,10 @@ public class EntryController {
     }
 
 
+    /**
+     * Returns entries that share the same parent entry with the entry identified by word
+     * (the specified entry isn't included in the returned collection).
+     */
     @GetMapping("{dictionary}/{word}/related")
     public Collection<Entry> getRelated(@PathVariable String word, @PathVariable String dictionary){
         return entryRepository.getRelated(word, dictionary);
@@ -74,6 +80,11 @@ public class EntryController {
         entryRepository.deleteAll();
     }
 
+    /**
+     * Return all entries on the path to the root entry from the specified entry,
+     * plus all children of the specified entry,
+     * plus all definitions of the specified entry.
+     */
     @GetMapping("{dictName}/{entryName}/overview")
     public Entry entryOverview(@PathVariable String dictName, @PathVariable String entryName) {
 
