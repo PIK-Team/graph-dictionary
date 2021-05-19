@@ -1,5 +1,5 @@
 import React from "react"
-import {navigate, Redirect} from "gatsby"
+import {navigate, Link} from "gatsby"
 import Container from "../components/container"
 import queryString from "query-string"
 import Header from '../components/header'
@@ -8,6 +8,7 @@ import Footer from '../components/footer'
 import MainWrapper from '../components/mainwrapper'
 import * as dictionaryViewStyle from '../styles/dictionaryview.module.css'
 import * as formStyle from '../styles/forms.module.css'
+import * as indexStyle from '../styles/index.module.css'
 
 
 export default class DictionaryView extends React.Component {
@@ -90,6 +91,9 @@ export default class DictionaryView extends React.Component {
                                         <button type="submit" className={`btn btn-primary ${formStyle.buttonSubmitForms}`}>Wyszukaj</button>
                                     </div>
                                 </form>
+                            </div>
+                            <div className={indexStyle.indexButtonDiv}>
+                                <Link to={`/newentry?dictionary=${this.state.dictionary[0].dictionaryName}`} style={{width: "30%", fontSize: "10pt"}} className={indexStyle.indexButton}>Dodaj wpis</Link>
                             </div>
                         </div>
                         <img src={this.state.dictionary[0].imageURI} alt="logo" width="250" height="250"></img>

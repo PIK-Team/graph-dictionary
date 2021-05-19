@@ -172,7 +172,7 @@ export default class NewDictionary extends React.Component {
 					
 							{ getThisEntryInfo([this.state.entry], this.entryParam) }
 							
-						<div className={indexStyle.indexButtonDiv}><Link to="#"  style={{width: "80%", fontSize: "10pt"}} className={indexStyle.indexButton}>Dodaj wpis potomny</Link></div>
+						<div className={indexStyle.indexButtonDiv}><Link to={`/newentry?dictionary=${this.dictionaryParam}&parent=${this.entryParam}`}  style={{width: "80%", fontSize: "10pt"}} className={indexStyle.indexButton}>Dodaj wpis potomny</Link></div>
 						
 					</div>
 					<div className={entryViewStyle.entryTree, entryViewStyle.entryWrapperElement}>

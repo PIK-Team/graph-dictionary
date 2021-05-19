@@ -39,7 +39,7 @@ export default class NewDictionary extends React.Component {
 		if (this.state.dictionaryName != "")
 		{
 			AddingDic.style.display="block";
-			fetch(process.env.API_URL+"/dictionaries", {
+			fetch(process.env.API_URL+"dictionaries", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"

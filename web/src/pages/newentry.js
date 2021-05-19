@@ -1,18 +1,23 @@
 import React from "react"
 import Container from "../components/container"
 import Header from '../components/header'
+import queryString from "query-string"
 import SubpageHeader from '../components/subpageheader'
 import Footer from '../components/footer'
 import MainWrapper from '../components/mainwrapper'
 import * as formStyle from '../styles/forms.module.css'
+import * as newDicStyle from '../styles/newdic.module.css'
 
 
 export default class NewEntry extends React.Component {
 
+    values = queryString.parse(this.props.location.search)
+	
     state = {
-        entryName: '',
-        entryDefinition: '',
-        entryParent: '',
+        word: '',
+        dictionary: this.values.dictionary,
+        parent_entry: this.values.parent,
+        definition: '',
     }
 
     handleInputChange = event => {
@@ -26,9 +31,54 @@ export default class NewEntry extends React.Component {
     }
 
     handleSubmit = event => {
-        event.preventDefault()
-		console.log("json: ", JSON.stringify(this.state))
-    }
+        console.log(JSON.stringify(this.state))
+		event.preventDefault();
+ 
+		let addedEntry = document.getElementById("AddedEntry");
+		addedEntry.style.display="none";
+		
+		let ErrorAddedEntry = document.getElementById("ErrorAddedEntry");
+		ErrorAddedEntry.style.display="none";
+		
+		let AddingEntry = document.getElementById("AddingEntry");
+		AddingEntry.style.display="none";
+				
+		if (this.state.word != "")
+		{
+			AddingEntry.style.display="block";
+			fetch(process.env.API_URL+"entries/define", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(this.state)
+			})
+			.then(function(response) {
+				if (!response.ok)
+				{
+					throw Error(response.statusText);
+				}
+				
+				return response;
+			})
+			.then(response => response.json())
+			.then(json => {				
+				if (json.word != this.state.word)
+				{
+					throw Error("somethingwentwrong...");
+				}
+				
+				AddingEntry.style.display="none";
+				addedEntry.style.display="block";
+			})
+			.catch(error => {
+				console.log(error);
+				AddingEntry.style.display="none";
+				ErrorAddedEntry.style.display="block";
+			});
+		}
+		
+	}
 
     render() {
         return (
@@ -36,29 +86,33 @@ export default class NewEntry extends React.Component {
                 <Header></Header>
                 <SubpageHeader subpageName="Dodawanie nowego wpisu"></SubpageHeader>
                 <MainWrapper>
+                    <div id="AddingEntry" className={ `${newDicStyle.responseStyle} ${newDicStyle.addingDic}` }>Trwa dodawanie wpisu</div>
+					<div id="AddedEntry" className={ `${newDicStyle.responseStyle} ${newDicStyle.addedDic}` }>Pomyślnie dodano nowy wpis do słownika</div>
+					<div id="ErrorAddedEntry" className={ `${newDicStyle.responseStyle} ${newDicStyle.errorAddedDic}` }>Nie udało się dodać wpisu. Spróbuj ponownie</div>
+
                     <form className={`form-horizontal ${formStyle.forms}`} onSubmit={this.handleSubmit}>
                         <div className={`form-group ${formStyle.groupForms}`}>
                         <label className={`control-label ${formStyle.labelForms}`}>Hasło:</label>
                             <input className={`form-control $formStyle.textInputForms}`} 
                                 type="text"
-                                name="entryName"
-                                value={this.state.entryName}
+                                name="word"
+                                value={this.state.word}
                                 onChange={this.handleInputChange}/>
                         </div>
                         <div className={`form-group ${formStyle.groupForms}`}>
 							<label className={`control-label ${formStyle.labelForms}`}>Definicja: </label>
                             <textarea className={`form-control $formStyle.textInputForms}`} 
                                 type="text"
-                                name="entryDefinition"
-                                value={this.state.entryDefinition}
+                                name="definition"
+                                value={this.state.definition}
                                 onChange={this.handleInputChange}/>
                         </div>
                         <div className={`form-group ${formStyle.groupForms}`}>
 							<label className={`control-label ${formStyle.labelForms}`}> Wpis nadrzędny:</label>
 							<input className={`form-control $formStyle.textInputForms}`}
                                 type="text"
-                                name="entryParent"
-                                value={this.state.entryParent}
+                                name="parent_entry"
+                                value={this.state.parent_entry}
                                 onChange={this.handleInputChange}/>
                         </div>
                         <div className={`form-group ${formStyle.groupForms} ${formStyle.buttonGroupForm}`}>
