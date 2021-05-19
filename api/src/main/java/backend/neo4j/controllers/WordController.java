@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/words")
 public class WordController {
 

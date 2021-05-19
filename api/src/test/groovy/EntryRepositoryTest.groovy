@@ -86,4 +86,25 @@ class EntryRepositoryTest extends Specification {
 
         entryRepository.findByWordNoRelationships(dictionary, word).getDefinitions().isEmpty();
     }
+
+    def "create two entries different word same definition"()
+    {
+        when:
+        String dictionary = "Dictionary";
+        String definition = "Definition";
+        String word1 = "FirstWord";
+        String word2 = "SecondWord"
+
+        Dictionary dict = new Dictionary();
+        dict.setDictionaryName(dictionary);
+
+        dictionaryRepository.save(dict);
+
+        entryRepository.defineRootEntry(word1, definition, dictionary);
+        entryRepository.defineRootEntry(word2, definition, dictionary);
+
+        then:
+        entryRepository.findAll().size()==2;
+    }
+
 }

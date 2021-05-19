@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("dictionaries")
 public class DictionaryController {
     @Autowired

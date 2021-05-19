@@ -19,9 +19,9 @@ public interface EntryRepository extends Repository<Entry, Long>
     @Query("MATCH(parent: Entry) -[:DEFINES]-> (Word{word: $parentWord})\n" +
             "MATCH (dict: Dictionary {dictionaryName: $dictionary} )\n" +
             "MERGE(word:Word{word: $inputWord})\n" +
-            "MERGE(definition: Definition{definition: $inputDefinition})\n" +
-            "MERGE((entry:Entry) -[:MEANS]-> (definition) )\n" +
-            "MERGE( (entry) -[:DEFINES]-> (word) )\n" +
+            "MERGE( (entry:Entry) -[:DEFINES]-> (word) )\n" +
+            "CREATE(definition: Definition{definition: $inputDefinition})\n" +
+            "CREATE((entry) -[:MEANS]-> (definition) )\n" +
             "MERGE( (parent) -[:CATEGORIZES]-> (entry) )\n" +
             "MERGE( (dict) -[:INCLUDES]-> (entry) )"
     )
@@ -32,8 +32,8 @@ public interface EntryRepository extends Repository<Entry, Long>
     @Query("" +
             "MATCH (dict: Dictionary {dictionaryName: $dictionary} )" +
             "MERGE(word:Word{word: $inputWord})\n" +
-            "MERGE(definition: Definition{definition: $inputDefinition})\n" +
-            "MERGE((entry:Entry) -[:MEANS]-> (definition) ) " +
+            "CREATE(definition: Definition{definition: $inputDefinition})\n" +
+            "CREATE((entry:Entry) -[:MEANS]-> (definition) ) " +
             "MERGE( (entry) -[:DEFINES]-> (word) )"+
             "MERGE( (dict) -[:INCLUDES]-> (entry) )"
     )
