@@ -9,8 +9,8 @@ import * as formStyle from '../styles/forms.module.css'
 export default class NewDictionary extends React.Component {
 	state = {
 		dictionaryName: "",
-		dictionaryDesc: "",
-		dictionaryLogoUrl: ""
+		description: "",
+		imageURI: ""
 	}
 	
 	handleInputChange = event => {
@@ -25,7 +25,17 @@ export default class NewDictionary extends React.Component {
 	
 	handleSubmit = event => {
 		event.preventDefault()
-		console.log("json: ", JSON.stringify(this.state))
+		if (this.state.dictionaryName != "")
+		{
+			fetch(process.env.API_URL+"/dictionaries", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(this.state)
+			});
+		}
+		
 	}
 	
 	render() {
@@ -47,16 +57,16 @@ export default class NewDictionary extends React.Component {
 							<label className={`control-label ${formStyle.labelForms}`}>Opis: </label>
 							<textarea className={`form-control $formStyle.textInputForms}`} 
 								type="text"
-								name="dictionaryDesc" 
-								value={this.state.dictionaryDesc} 
+								name="description" 
+								value={this.state.description} 
 								onChange={this.handleInputChange}/>
 						</div>
 						<div className={`form-group ${formStyle.groupForms}`}>
 							<label className={`control-label ${formStyle.labelForms}`}> URL Logo:</label>
 							<input className={`form-control $formStyle.textInputForms}`}
 								type="text" 
-								name="dictionaryLogoUrl"
-								value={this.state.dictionaryLogoUrl} 
+								name="imageURI"
+								value={this.state.imageURI} 
 								onChange={this.handleInputChange}/>
 						</div>
 						<div className={`form-group ${formStyle.groupForms} ${formStyle.buttonGroupForm}`}>
