@@ -5,6 +5,7 @@ import SubpageHeader from '../components/subpageheader'
 import Footer from '../components/footer'
 import MainWrapper from '../components/mainwrapper'
 import * as formStyle from '../styles/forms.module.css'
+import * as newDicStyle from '../styles/newdic.module.css'
 
 export default class NewDictionary extends React.Component {
 	state = {
@@ -78,9 +79,9 @@ export default class NewDictionary extends React.Component {
 				<Header></Header>
 				<SubpageHeader subpageName="Dodawanie nowego słownika"></SubpageHeader>
 				<MainWrapper>
-					<div id="AddingDic" style={{display: "none"}}>Trwa dodawanie słownika</div>
-					<div id="AddedDic" style={{display: "none"}}>Pomyślnie dodano nowy słownik</div>
-					<div id="ErrorAddedDic" style={{display: "none"}}>Nie udało się dodać słownika. Spróbuj ponownie</div>
+					<div id="AddingDic" className={ `${newDicStyle.responseStyle} ${newDicStyle.addingDic}` }>Trwa dodawanie słownika</div>
+					<div id="AddedDic" className={ `${newDicStyle.responseStyle} ${newDicStyle.addedDic}` }>Pomyślnie dodano nowy słownik</div>
+					<div id="ErrorAddedDic" className={ `${newDicStyle.responseStyle} ${newDicStyle.errorAddedDic}` }>Nie udało się dodać słownika. Spróbuj ponownie</div>
 					
 					<form className={`form-horizontal ${formStyle.forms}`} onSubmit={this.handleSubmit}>
 						<div className={`form-group ${formStyle.groupForms}`}>
