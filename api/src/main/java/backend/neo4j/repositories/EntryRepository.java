@@ -41,6 +41,15 @@ public interface EntryRepository extends Repository<Entry, Long>
                          @Param ("dictionary") String dictionary);
 
 
+    @Query("MATCH (dict: Dictionary {dictionaryName: $dictionary} ) -[:INCLUDES]-> (e: Entry)\n" +
+            "MATCH(e) -[:DEFINES]-> (Word{word: $inputWord})\n" +
+            "CREATE(definition: Definition{definition: $inputDefinition})\n" +
+            "MERGE((e) -[:MEANS]-> (definition) )" +
+            "MATCH(e) -[rel_def:MEANS]-> (alldefs: Definition)" +
+            "RETURN e, collect(rel_def), collect(alldefs)"
+    )
+    List<Entry> addDefinition(@Param("inputWord") String inputWord, @Param("inputDefinition") String inputDefinition,
+                          @Param ("dictionary") String dictionary);
 
 
     // Te zapytania nie pobieraja zwiazkow glebszych niz 1

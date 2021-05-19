@@ -23,6 +23,9 @@ public class DictionaryController {
 
     @PostMapping
     public Dictionary post(@RequestBody Dictionary dict){
+        if (dictionaryRepository.dictByNameNoEntries(dict.getDictionaryName()) != null)
+            return new Dictionary();
+
         return dictionaryRepository.save(dict);
     }
 
@@ -30,6 +33,8 @@ public class DictionaryController {
     public Collection<Dictionary> getAll() {
         return dictionaryRepository.findAll();
     }
+
+
 
     @GetMapping("/dicts")
     public Collection<Dictionary> getDictionaryListNoEntries(){
@@ -49,5 +54,10 @@ public class DictionaryController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public void delete(@RequestBody Map<String, String> params) {
         dictionaryRepository.deleteDictionaryByDictionaryName(params.get("name"));
+    }
+
+    @GetMapping("{name}/description")
+    public Dictionary getDescription(@PathVariable String name){
+        return dictionaryRepository.dictByNameNoEntries(name);
     }
 }

@@ -50,6 +50,24 @@ public class EntryController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    /**
+     * Add definition to an existing entry
+     * @param params  {"word" : "myword", "definition": "mydef", "dictionary": "mydict"}
+     * @return : The entry modified and all it's definitions, including the one inserted
+     */
+    @RequestMapping(value = "/adddef", method = RequestMethod.POST)
+    @ResponseBody
+    public List<Entry> addDefinition(@RequestBody Map<String, String> params) {
+
+        String word_param = "word";
+        String dictionary_param = "dictionary";
+        String definition_param = "definition";
+        return entryRepository.addDefinition(params.get(word_param), params.get(definition_param), params.get(dictionary_param));
+
+    }
+
+
+
     @GetMapping
     public Collection<Entry> getAll() {
         return entryRepository.findAll();
