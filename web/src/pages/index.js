@@ -14,7 +14,7 @@ const HomePage = () => {
 		<SubpageHeader subpageName="Strona główna"></SubpageHeader>
 		<MainWrapper>
 			<div className={indexStyle.indexButtonDiv}><Link to="newdictionary" className={indexStyle.indexButton}>Stwórz słownik</Link></div>
-			<div className={indexStyle.indexButtonDiv}><Link to="/test1/" className={indexStyle.indexButton}>Lista słowników</Link></div>
+			<div className={indexStyle.indexButtonDiv}><Link to="dictionarylist" className={indexStyle.indexButton}>Lista słowników</Link></div>
 			
 		</MainWrapper>
 		<Footer></Footer>

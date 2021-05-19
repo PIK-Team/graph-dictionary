@@ -62,7 +62,7 @@ export default class DictionaryList extends React.Component {
                                             onChange={this.handleInputChange}/>
                                     </div>
                                     <div className={`form-group ${formStyle.groupForms} ${formStyle.buttonGroupForm}`}>
-                                        <button type="submit" className={`btn btn-primary ${formStyle.buttonSubmitForms}`}>Dodaj</button>
+                                        <button type="submit" className={`btn btn-primary ${formStyle.buttonSubmitForms}`}>Wyszukaj</button>
                                     </div>
                                 </form>
                             </div>
