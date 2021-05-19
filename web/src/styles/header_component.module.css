@@ -1,0 +1,57 @@
+:root {
+  --shadow-color: #FF9E9E;
+  --shadow-color-light: white;
+}
+
+.headerWrapper {
+	height: 120px;
+	width: 100%;
+	background-color: #A9A9A9;
+	z-index: 10;
+}
+
+.headerImgWrapper {
+	margin-top:auto;
+	margin-bottom:auto;
+	margin-left: 100px;
+	width: 120px;
+	position: absolute;
+}
+
+.headerTitle {
+	position: absolute;
+	margin-left:auto;
+	margin-right:auto;
+	line-height: 120px;
+	left: 0;
+	right:0;
+	font-size:30pt;
+	width:min-content;
+	white-space: nowrap;
+	text-align: center;
+	text-transform: uppercase;
+	font-family: "Archivo Black", "Archivo", sans-serif;
+	font-weight: normal;
+	display: block;
+	text-align: center;
+	color: black;
+	animation: neon 3s infinite;
+}
+
+@keyframes neon {
+  0% {
+    text-shadow: -1px -1px 1px var(--shadow-color-light), -1px 1px 1px var(--shadow-color-light), 1px -1px 1px var(--shadow-color-light), 1px 1px 1px var(--shadow-color-light),
+    0 0 3px var(--shadow-color-light), 0 0 10px var(--shadow-color-light), 0 0 20px var(--shadow-color-light),
+    0 0 30px var(--shadow-color), 0 0 40px var(--shadow-color), 0 0 50px var(--shadow-color), 0 0 70px var(--shadow-color), 0 0 100px var(--shadow-color), 0 0 200px var(--shadow-color);
+  }
+  50% {
+    text-shadow: -1px -1px 1px var(--shadow-color-light), -1px 1px 1px var(--shadow-color-light), 1px -1px 1px var(--shadow-color-light), 1px 1px 1px var(--shadow-color-light),
+    0 0 5px var(--shadow-color-light), 0 0 15px var(--shadow-color-light), 0 0 25px var(--shadow-color-light),
+    0 0 40px var(--shadow-color), 0 0 50px var(--shadow-color), 0 0 60px var(--shadow-color), 0 0 80px var(--shadow-color), 0 0 110px var(--shadow-color), 0 0 210px var(--shadow-color);
+  }
+  100% {
+    text-shadow: -1px -1px 1px var(--shadow-color-light), -1px 1px 1px var(--shadow-color-light), 1px -1px 1px var(--shadow-color-light), 1px 1px 1px var(--shadow-color-light),
+    0 0 3px var(--shadow-color-light), 0 0 10px var(--shadow-color-light), 0 0 20px var(--shadow-color-light),
+    0 0 30px var(--shadow-color), 0 0 40px var(--shadow-color), 0 0 50px var(--shadow-color), 0 0 70px var(--shadow-color), 0 0 100px var(--shadow-color), 0 0 200px var(--shadow-color);
+  }
+}

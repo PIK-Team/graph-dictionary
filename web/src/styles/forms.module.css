@@ -1,0 +1,26 @@
+.forms {
+	margin: 20px auto;
+	max-width: 500px;
+}
+
+.labelForms {
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+.groupForms {
+	margin-bottom: 20px;
+	max-width: 500px;
+}
+
+.buttonSubmitForms {
+	width: 100%;
+	max-width: 250px;
+	position: relative;
+	left: 0;
+	right: 0;
+}
+
+.buttonGroupForm {
+	text-align: center;
+}
