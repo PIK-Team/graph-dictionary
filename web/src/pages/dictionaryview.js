@@ -1,6 +1,7 @@
 import React from "react"
-import {Link} from "gatsby"
+import {navigate, Redirect} from "gatsby"
 import Container from "../components/container"
+import queryString from "query-string"
 import Header from '../components/header'
 import SubpageHeader from '../components/subpageheader'
 import Footer from '../components/footer'
@@ -9,16 +10,26 @@ import * as dictionaryViewStyle from '../styles/dictionaryview.module.css'
 import * as formStyle from '../styles/forms.module.css'
 
 
-export default class DictionaryList extends React.Component {
-    dictionary = {
-            name: "Słownik medyczny",
-            description: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
-            logoUrl: "https://euro-bion.pl/wp-content/uploads/2020/08/AdobeStock_120965550.jpeg"
-        }
+export default class DictionaryView extends React.Component {
+
+    values = queryString.parse(this.props.location.search)
+	
+	dictionaryParam = this.values.dictionary
 
     state = {
-        entryName: ""
+        entryName: "",
+        dictionary: null,
     }
+
+    componentDidMount() {
+		fetch(process.env.API_URL+'dictionaries/'+this.dictionaryParam+'/getByName', {
+			method: 'GET',
+		})
+		.then(response => response.json())
+		.then(json => {
+            this.setState({dictionary:json});
+        });
+	}	
 
     handleInputChange = event => {
 		const target = event.target
@@ -32,10 +43,24 @@ export default class DictionaryList extends React.Component {
 	
 	handleSubmit = event => {
 		event.preventDefault()
-		console.log("json: ", JSON.stringify(this.state))
+        navigate(`/entryview?dictionary=${this.state.dictionary[0].dictionaryName}&entry=${this.state.entryName}`)
 	}
 	
 	render() {
+
+        if (this.state.dictionary === null) {
+            return(
+                <Container>
+                    <Header></Header>
+                    <SubpageHeader subpageName="Słownik"></SubpageHeader>
+                    <MainWrapper>
+                            <center>ŁADOWANIE</center>
+                    </MainWrapper>
+                    <Footer></Footer>
+                </Container>
+            )
+        }
+
 		return(
 			<Container>
 				<Header></Header>
@@ -45,11 +70,11 @@ export default class DictionaryList extends React.Component {
                         <div className={dictionaryViewStyle.mainColumn}>
                             <div className={dictionaryViewStyle.dictNameRow}>
                                 <div className={dictionaryViewStyle.category}>Nazwa:</div>
-                                <div className={dictionaryViewStyle.dictName}>{this.dictionary.name}</div>
+                                <div className={dictionaryViewStyle.dictName}>{this.state.dictionary[0].dictionaryName}</div>
                             </div>
                             <div className={dictionaryViewStyle.row}>
                                 <div className={dictionaryViewStyle.category}>Opis:</div>
-                                <div className={dictionaryViewStyle.description}>{this.dictionary.description}</div>
+                                <div className={dictionaryViewStyle.description}>{this.state.dictionary[0].description}</div>
                             </div>
                             <div className={dictionaryViewStyle.row}>
                                 <form className={`form-horizontal ${formStyle.forms}`} onSubmit={this.handleSubmit}>
@@ -67,7 +92,7 @@ export default class DictionaryList extends React.Component {
                                 </form>
                             </div>
                         </div>
-                        <img src={this.dictionary.logoUrl} alt="logo" width="250" height="250"></img>
+                        <img src={this.state.dictionary[0].imageURI} alt="logo" width="250" height="250"></img>
                     </div>
 				</MainWrapper>
 				<Footer></Footer>

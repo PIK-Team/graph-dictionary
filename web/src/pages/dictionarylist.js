@@ -20,8 +20,6 @@ export default class DictionaryList extends React.Component {
 		})
 		.then(response => response.json())
 		.then(json => this.setState({dictionaryList:json}));
-
-        console.log(this.state);
 	}	
 	
 	render() {
@@ -33,7 +31,7 @@ export default class DictionaryList extends React.Component {
 					<Header></Header>
                     <SubpageHeader subpageName="Lista słowników"></SubpageHeader>
 					<MainWrapper>
-                        <center className={dictionaryListStyle.list}>
+                        <center>
 						    ŁADOWANIE
 						</center>
 					</MainWrapper>
