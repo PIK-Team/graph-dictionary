@@ -24,7 +24,7 @@ public class DictionaryController {
     @PostMapping
     public Dictionary post(@RequestBody Dictionary dict){
         if (dictionaryRepository.dictByNameNoEntries(dict.getDictionaryName()) != null)
-            return null;
+            return new Dictionary();
 
         return dictionaryRepository.save(dict);
     }
