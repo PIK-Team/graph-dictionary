@@ -24,6 +24,6 @@ public interface DictionaryRepository extends Repository<Dictionary, String>
     void deleteAll();
     void deleteDictionaryByDictionaryName(String name);
 
-    @Query("MATCH d: Dictionary{dictionaryName: $name} RETURN d)")
+    @Query("MATCH (d: Dictionary{dictionaryName: $name}) RETURN d")
     Dictionary dictByNameNoEntries(@Param("name") String name);
 }
