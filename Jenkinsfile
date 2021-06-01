@@ -11,7 +11,7 @@ git fetch --tags'''
 cd ..'''
         sh '''cd api
 ./gradlew cV
-./gradlew release -Prelease.disableChecks -Prelease.customKeyFile="/var/jenkins_home/.ssh/new_PEM_jenkins"
+./gradlew release -Prelease.disableChecks -Prelease.customKeyFile="/var/jenkins_home/.ssh/versioning_PEM_ssh"
 ./gradlew cV
 cd ..'''
       }
