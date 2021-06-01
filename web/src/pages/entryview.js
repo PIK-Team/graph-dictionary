@@ -205,7 +205,6 @@ export default class EntryView extends React.Component {
 									
 								/>
 					</div>
-					<div style= {{ paddingBottom: "300px" }}></div>
 				</MainWrapper>
 				<Footer></Footer>
 			</Container>
