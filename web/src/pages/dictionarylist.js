@@ -52,7 +52,8 @@ export default class DictionaryList extends React.Component {
                         {this.state.dictionaryList.map(dictionary => (
                             <Link to={`/dictionaryview?dictionary=${dictionary.dictionaryName}`}>
                                 <div className={dictionaryListStyle.row}>
-                                    <img src={dictionary.imageURI} alt={`Obrazek ${dictionary.dictionaryName}`} width="120" height="120"></img>
+                                    { dictionary.imageURI != "" && dictionary.imageURI != null && <img src={dictionary.imageURI} alt={`Obrazek ${dictionary.dictionaryName}`} width="120" height="120"></img> }
+									{ ( dictionary.imageURI == "" || dictionary.imageURI == null) && <span style={{width: "120px"}}></span> }
                                     <div>{dictionary.description}</div>
                                     <div className={dictionaryListStyle.dictName}>{dictionary.dictionaryName}</div>
                                 </div>
