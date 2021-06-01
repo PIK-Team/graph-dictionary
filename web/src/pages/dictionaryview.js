@@ -68,10 +68,16 @@ export default class DictionaryView extends React.Component {
 				<SubpageHeader subpageName="Słownik"></SubpageHeader>
 				<MainWrapper>
                     <div className={dictionaryViewStyle.row}>
+				
                         <div className={dictionaryViewStyle.mainColumn}>
+						
+							{ this.state.dictionary[0].imageURI != "" && this.state.dictionary[0].imageURI != null && <img src={this.state.dictionary[0].imageURI} alt="logo" width="250" height="250" className={dictionaryViewStyle.dictionaryLogo} ></img> }
+							
                             <div className={dictionaryViewStyle.dictNameRow}>
                                 <div className={dictionaryViewStyle.category}>Nazwa:</div>
                                 <div className={dictionaryViewStyle.dictName}>{this.state.dictionary[0].dictionaryName}</div>
+								
+								
                             </div>
                             <div className={dictionaryViewStyle.row}>
                                 <div className={dictionaryViewStyle.category}>Opis:</div>
@@ -96,7 +102,6 @@ export default class DictionaryView extends React.Component {
                                 <Link to={`/newentry?dictionary=${this.state.dictionary[0].dictionaryName}`} style={{width: "30%", fontSize: "10pt"}} className={indexStyle.indexButton}>Dodaj wpis</Link>
                             </div>
                         </div>
-                        { this.state.dictionary[0].imageURI != "" && this.state.dictionary[0].imageURI != null && <img src={this.state.dictionary[0].imageURI} alt="logo" width="250" height="250"></img> }
                     </div>
 				</MainWrapper>
 				<Footer></Footer>
