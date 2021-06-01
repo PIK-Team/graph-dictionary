@@ -7,7 +7,7 @@ pipeline {
                     $class: 'GitSCM',
                     branches: scm.branches,
                     doGenerateSubmoduleConfigurations: scm.doGenerateSubmoduleConfigurations,
-                    extensions: scm.extensions + [[$class: 'CloneOption', noTags: false, reference: '', shallow: true]],
+                    extensions: scm.extensions + [[$class: 'CloneOption', noTags: false, reference: '', shallow: false]],
                     submoduleCfg: [],
                     userRemoteConfigs: scm.userRemoteConfigs
                   ])
@@ -19,7 +19,7 @@ cd ..'''
           sh '''cd api
 ./gradlew cV
 git tag
-./gradlew release -Prelease.disableChecks -Prelease.customKeyFile="/var/jenkins_home/.ssh/versioning_PEM_ssh"
+./gradlew release -Prelease.disableChecks -Prelease.useHighestVersion  -Prelease.customKeyFile="/var/jenkins_home/.ssh/versioning_PEM_ssh"
 git tag
 ./gradlew cV
 git tag
