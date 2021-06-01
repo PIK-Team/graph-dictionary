@@ -3,6 +3,14 @@ pipeline {
   stages {
     stage('Build') {
       steps {
+        checkout([
+          $class: 'GitSCM',
+          branches: scm.branches,
+          doGenerateSubmoduleConfigurations: scm.doGenerateSubmoduleConfigurations,
+          extensions: scm.extensions + [[$class: 'CloneOption', noTags: false, reference: '', shallow: true]],
+          submoduleCfg: [],
+          userRemoteConfigs: scm.userRemoteConfigs
+        ])  
         echo 'Building..'
         sh '''git tag -l | xargs git tag -d
 git fetch --tags'''
