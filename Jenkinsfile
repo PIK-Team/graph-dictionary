@@ -4,7 +4,8 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Building..'
-        sh 'git tag -l'
+        sh '''git tag -l | xargs git tag -d
+git fetch --tags'''
         sh '''cd api
 ./gradlew clean build
 cd ..'''
