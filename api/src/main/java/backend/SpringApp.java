@@ -15,7 +15,15 @@ import java.util.Collections;
 @EnableTransactionManagement
 public class SpringApp extends SpringBootServletInitializer
 {
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(Application.class);
+	}
 
+<<<<<<< HEAD
+    public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+=======
     public static void main(String[] args)
     {
         SpringApplication app = new SpringApplication(SpringApp.class);
@@ -28,5 +36,6 @@ public class SpringApp extends SpringBootServletInitializer
      protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(SpringApp.class);
     }
+>>>>>>> ca041653522552395d188092ff0a0203cab31cc5
 }
    
