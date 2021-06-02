@@ -11350,24 +11350,24 @@ module.exports = withSideEffect;
 /***/ }),
 
 /***/ "react-dom/server":
-/*!********************************************************************************************************!*\
-  !*** external "D:\\Studia\\PIK\\aplikacja\\graph-dictionary\\web\\node_modules\\react-dom\\server.js" ***!
-  \********************************************************************************************************/
+/*!**************************************************************************************************!*\
+  !*** external "D:\\Studia\\PIK\\git\\graph-dictionary\\web\\node_modules\\react-dom\\server.js" ***!
+  \**************************************************************************************************/
 /***/ ((module) => {
 
 "use strict";
-module.exports = require("D:\\Studia\\PIK\\aplikacja\\graph-dictionary\\web\\node_modules\\react-dom\\server.js");;
+module.exports = require("D:\\Studia\\PIK\\git\\graph-dictionary\\web\\node_modules\\react-dom\\server.js");;
 
 /***/ }),
 
 /***/ "react":
-/*!***************************************************************************************************!*\
-  !*** external "D:\\Studia\\PIK\\aplikacja\\graph-dictionary\\web\\node_modules\\react\\index.js" ***!
-  \***************************************************************************************************/
+/*!*********************************************************************************************!*\
+  !*** external "D:\\Studia\\PIK\\git\\graph-dictionary\\web\\node_modules\\react\\index.js" ***!
+  \*********************************************************************************************/
 /***/ ((module) => {
 
 "use strict";
-module.exports = require("D:\\Studia\\PIK\\aplikacja\\graph-dictionary\\web\\node_modules\\react\\index.js");;
+module.exports = require("D:\\Studia\\PIK\\git\\graph-dictionary\\web\\node_modules\\react\\index.js");;
 
 /***/ }),
 
