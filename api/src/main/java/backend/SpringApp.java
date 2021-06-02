@@ -21,6 +21,11 @@ public class SpringApp extends SpringBootServletInitializer
         SpringApplication app = new SpringApplication(SpringApp.class);
         app.setDefaultProperties(Collections.singletonMap("server.port", "9090"));
         app.run(args);
+        
+        @Override
+        protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+            return application.sources(Application.class);
+    }
     }
 }
    
