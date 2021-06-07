@@ -138,4 +138,13 @@ public class EntryController {
         return entryRepository.findByWordNoRelationships(dictName, entryName);
     }
 
+
+    /**
+     * Returns entries with suffix or prefix identical as the given input.
+     */
+    @GetMapping("{dictName}/hints/{affix}")
+    public List<String> getHints(@PathVariable String dictName, @PathVariable String affix) {
+        return entryRepository.getHintsByAffix(dictName, affix);
+    }
+
 }
