@@ -9,6 +9,7 @@ import MainWrapper from '../components/mainwrapper'
 import * as dictionaryViewStyle from '../styles/dictionaryview.module.css'
 import * as formStyle from '../styles/forms.module.css'
 import * as indexStyle from '../styles/index.module.css'
+import * as newDicStyle from '../styles/newdic.module.css'
 
 
 export default class DictionaryView extends React.Component {
@@ -44,7 +45,26 @@ export default class DictionaryView extends React.Component {
 	
 	handleSubmit = event => {
 		event.preventDefault()
-        navigate(`/entryview?dictionary=${this.state.dictionary[0].dictionaryName}&entry=${this.state.entryName}`)
+
+        const state = this.state;
+        let ErrorFindingEntry = document.getElementById("ErrorFindingEntry");
+		ErrorFindingEntry.style.display="none";
+
+        fetch(process.env.API_URL+`entries/${this.state.dictionary[0].dictionaryName}/${this.state.entryName}/overview`, {
+			method: 'GET',
+		})
+        .then(function(response) {
+            if (!response.ok)
+            {
+                ErrorFindingEntry.style.display="block";
+            }
+            else
+            {
+                navigate(`/entryview?dictionary=${state.dictionary[0].dictionaryName}&entry=${state.entryName}`);
+
+            }
+        })
+
 	}
 	
 	render() {
@@ -67,6 +87,7 @@ export default class DictionaryView extends React.Component {
 				<Header></Header>
 				<SubpageHeader subpageName="Słownik"></SubpageHeader>
 				<MainWrapper>
+                    <div id="ErrorFindingEntry" className={ `${newDicStyle.responseStyle} ${newDicStyle.errorAddedDic}` }>Nie ma takiego wpisu w słowniku.</div>
                     <div className={dictionaryViewStyle.row}>
 				
                         <div className={dictionaryViewStyle.mainColumn}>
