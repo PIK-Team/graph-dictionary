@@ -31,7 +31,6 @@ export default class NewEntry extends React.Component {
     }
 
     handleSubmit = event => {
-        console.log(JSON.stringify(this.state))
 		event.preventDefault();
  
 		let addedEntry = document.getElementById("AddedEntry");
@@ -58,16 +57,9 @@ export default class NewEntry extends React.Component {
 				{
 					throw Error(response.statusText);
 				}
-				
 				return response;
 			})
-			.then(response => response.json())
-			.then(json => {				
-				if (json.word != this.state.word)
-				{
-					throw Error("somethingwentwrong...");
-				}
-				
+			.then(() => {	
 				AddingEntry.style.display="none";
 				addedEntry.style.display="block";
 			})
