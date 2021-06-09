@@ -21,7 +21,9 @@ export default class DictionaryView extends React.Component {
     state = {
         entryName: "",
         dictionary: null,
+        hints: null
     }
+
 
     componentDidMount() {
 		fetch(process.env.API_URL+'dictionaries/'+this.dictionaryParam+'/getByName', {
@@ -31,17 +33,50 @@ export default class DictionaryView extends React.Component {
 		.then(json => {
             this.setState({dictionary:json});
         });
+
+        window.addEventListener('click', event => {
+            if (!event.target.closest('#autocompleteList'))
+                this.setState({"hints": null})  
+            },
+            true);
 	}	
 
     handleInputChange = event => {
 		const target = event.target
 		const value = target.value
 		const name = target.name
-		
-		this.setState({
+        
+        this.setState({
 			[name]: value
+		});
+
+        if (value.length == 0) {
+            this.state.hints = null;
+            return;
+        }
+
+        fetch(process.env.API_URL+`entries/${this.state.dictionary[0].dictionaryName}/hints/${value}`, {
+			method: 'GET',
 		})
+        .then(function(response) {
+            if (response.ok)
+                return response;
+        })
+        .then(response => response.json())
+		.then(json => this.setState({hints:json}));
+
+		
+		
 	}
+
+    handleClick = event => {
+        event.stopPropagation();
+        const target = event.target
+		const value = target.innerText
+        
+
+        this.setState({"entryName" : value, "hints": null});
+    }
 	
 	handleSubmit = event => {
 		event.preventDefault()
@@ -105,14 +140,26 @@ export default class DictionaryView extends React.Component {
                                 <div className={dictionaryViewStyle.description}>{this.state.dictionary[0].description}</div>
                             </div>
                             <div className={dictionaryViewStyle.row}>
-                                <form className={`form-horizontal ${formStyle.forms}`} onSubmit={this.handleSubmit}>
+                                <form className={`form-horizontal ${formStyle.forms}`} onSubmit={this.handleSubmit} autocomplete="off">
                                     <div className={`form-group ${formStyle.groupForms}`}>
                                         <label className={`control-label ${formStyle.labelForms}`}>Wyszukaj termin:</label>
-                                        <input className={`form-control $formStyle.textInputForms}`}
+                                        <div className={formStyle.autocomplete}>
+                                            <input className={`form-control $formStyle.textInputForms}`}
+                                            id="entryInput"
                                             type="text" 
                                             name="entryName" 
                                             value={this.state.entryName} 
                                             onChange={this.handleInputChange}/>
+                                            {this.state.hints != null &&
+                                                <div id="autocompleteList" name="autocompleteList" className={formStyle.autocompleteItems}>
+                                                    {this.state.hints.map(hint => (
+                                                            <div onClick={this.handleClick}>
+                                                                {hint}
+                                                            </div>
+                                                    ))}
+                                                </div>
+                                            }
+                                        </div>
                                     </div>
                                     <div className={`form-group ${formStyle.groupForms} ${formStyle.buttonGroupForm}`}>
                                         <button type="submit" className={`btn btn-primary ${formStyle.buttonSubmitForms}`}>Wyszukaj</button>

@@ -120,6 +120,11 @@ public interface EntryRepository extends Repository<Entry, Long>
     public List<Entry> getChildrenWordsOnly(@Param("dictName") String dictName, @Param("entryName") String entryName);
 
 
+    @Query("    MATCH(Dictionary{dictionaryName: $dictName}) -[:INCLUDES]-> (e: Entry)\n" +
+        "       MATCH (e)- [rel :DEFINES]->(w: Word)\n" +
+        "       WHERE w.word ENDS WITH $affix OR w.word STARTS WITH $affix" +
+        "       RETURN w.word")
+    public List<String> getHintsByAffix(@Param("dictName") String dictName, @Param("affix") String affix);
 
     void deleteAll();
 
