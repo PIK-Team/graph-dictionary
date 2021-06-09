@@ -16,8 +16,9 @@ import java.util.List;
 @RepositoryRestResource(collectionResourceRel = "entries", path = "entries")
 public interface EntryRepository extends Repository<Entry, Long>
 {
-    @Query("MATCH(parent: Entry) -[:DEFINES]-> (Word{word: $parentWord})\n" +
-            "MATCH (dict: Dictionary {dictionaryName: $dictionary} )\n" +
+    @Query( "MATCH (dict: Dictionary {dictionaryName: $dictionary} )\n" +
+            "MATCH (dict) -[:INCLUDES]-> (parent: Entry)" +
+            "MATCH(parent) -[:DEFINES]-> (Word{word: $parentWord})\n" +
             "MERGE(word:Word{word: $inputWord})\n" +
             "MERGE( (entry:Entry) -[:DEFINES]-> (word) )\n" +
             "CREATE(definition: Definition{definition: $inputDefinition})\n" +
@@ -119,6 +120,11 @@ public interface EntryRepository extends Repository<Entry, Long>
     public List<Entry> getChildrenWordsOnly(@Param("dictName") String dictName, @Param("entryName") String entryName);
 
 
+    @Query("    MATCH(Dictionary{dictionaryName: $dictName}) -[:INCLUDES]-> (e: Entry)\n" +
+        "       MATCH (e)- [rel :DEFINES]->(w: Word)\n" +
+        "       WHERE w.word ENDS WITH $affix OR w.word STARTS WITH $affix" +
+        "       RETURN w.word")
+    public List<String> getHintsByAffix(@Param("dictName") String dictName, @Param("affix") String affix);
 
     void deleteAll();
 

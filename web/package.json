@@ -32,6 +32,7 @@
     "react": "^17.0.1",
     "react-bootstrap": "^1.6.0",
     "react-dom": "^17.0.1",
-    "react-helmet": "^6.1.0"
+    "react-helmet": "^6.1.0",
+    "react-tree-graph": "^6.0.0"
   }
 }

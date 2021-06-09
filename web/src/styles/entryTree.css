@@ -1,0 +1,33 @@
+.treeWord {
+	cursor: pointer;
+}
+
+.treeWord text {
+	/*color: #ff0040;
+	fill: #ff0040;
+	stroke: #ff0040;*/
+}
+
+.treeThisWord {
+	color: #123456;
+	fill: #000;
+	font-weight:bold;
+}
+
+.treeThisWord circle {
+	fill: #000;
+}
+
+.node text {
+	border: 2px solid black;
+	padding: 5px;
+	background-color: black !important;
+	font-size: 18px;
+	color: blue;
+}
+
+path.link {
+	fill: none;
+	stroke: #a9dcd6;
+	stroke-width: 2px;
+}
