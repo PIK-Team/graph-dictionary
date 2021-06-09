@@ -111,13 +111,20 @@ public interface EntryRepository extends Repository<Entry, Long>
             "    RETURN parent, collect(word_rel), collect(parent_word)")
     public Entry getParentWordOnly(@Param("dictName") String dictName, @Param("entryName") String entryName);
 
-
     @Query("    MATCH(Dictionary{dictionaryName: $dictName}) -[:INCLUDES]-> (e: Entry)\n" +
             "    MATCH(e) -[:DEFINES]-> (word: Word{word: $entryName})\n" +
             "    MATCH(e) -[:CATEGORIZES]-> (child: Entry)\n" +
             "    MATCH(child) -[def:DEFINES]-> (child_word)\n" +
             "    RETURN child, collect(def), collect(child_word)")
     public List<Entry> getChildrenWordsOnly(@Param("dictName") String dictName, @Param("entryName") String entryName);
+
+    @Query("    MATCH(Dictionary{dictionaryName: $dictName}) -[:INCLUDES]-> (e: Entry)\n" +
+            "    MATCH(e) -[:DEFINES]-> (word: Word{word: $entryName})\n" +
+            "    MATCH(e) -[:CATEGORIZES]-> (child: Entry)\n" +
+            "    MATCH(child) -[def:DEFINES]-> (child_word)\n" +
+            "    RETURN child, collect(def), collect(child_word)" +
+            "    LIMIT $limit")
+    public List<Entry> getChildrenWordsOnly(@Param("dictName") String dictName, @Param("entryName") String entryName, @Param("limit") int limit);
 
 
 
