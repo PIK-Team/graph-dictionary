@@ -43,4 +43,7 @@ public class WordController {
         wordRepository.delete(word);
     }
 
+    @PostMapping
+
+
 }

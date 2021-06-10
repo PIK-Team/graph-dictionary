@@ -25,6 +25,9 @@ public class Word
         this.word = word;
     }
 
+    @Relationship(type="TRANSLATES_INTO", direction = Relationship.Direction.OUTGOING)
+    private List<Translation> translations = new ArrayList<>();
+
     @Override
     public boolean equals(Object o)
     {
