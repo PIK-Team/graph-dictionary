@@ -30,6 +30,11 @@ public class WordController {
         this.wordRepository = wordRepository;
     }
 
+    @GetMapping("/get/{word}")
+    public Word getWord (@PathVariable String word){
+        return wordRepository.find(word);
+    }
+
     @GetMapping
     public Collection<Word> getAll() {
         return wordRepository.findAll();
@@ -90,9 +95,7 @@ public class WordController {
     @GetMapping("/{word}/translations")
     public Map<String, String> getTranslations(@PathVariable String word){
 
-        Word dbWord = wordRepository.findByWord(word).get(0);
-
-        System.out.println(word);
+        Word dbWord = wordRepository.find(word);
 
         Map<String, String> translations = dbWord.getTranslations().stream()
                 .collect(Collectors.toMap(

@@ -31,4 +31,13 @@ public class Translation {
     public Word getTranslation() {
         return translation;
     }
+
+    @Override
+    public String toString() {
+        return "Translation{" +
+                "id=" + id +
+                ", language='" + language + '\'' +
+                ", translation=" + translation +
+                '}';
+    }
 }

@@ -53,5 +53,11 @@ public class Word
         return Objects.hash(getWord());
     }
 
-
+    @Override
+    public String toString() {
+        return "Word{" +
+                "word='" + word + '\'' +
+                ", translations=" + translations +
+                '}';
+    }
 }

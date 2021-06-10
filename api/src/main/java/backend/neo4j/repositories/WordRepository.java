@@ -19,10 +19,16 @@ public interface WordRepository extends Repository<Word, String>
 
     Collection<Word> findAll();
     void save(Word word);
-    List<Word> findByWord(String word);
+    //List<Word> findByWord(String word);
     boolean existsByWord(String word);
     void delete(Word word);
     void deleteAll();
+
+
+    @Query("MATCH (w: Word {word: $word})" +
+            "OPTIONAL MATCH (w)-[relationship]->(child)" +
+            "RETURN w, collect(relationship), collect(child)")
+    Word find(String word);
 
 
 
