@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.Collection;
+import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "words", path = "words")
 public interface WordRepository extends Repository<Word, String>
@@ -18,8 +19,19 @@ public interface WordRepository extends Repository<Word, String>
 
     Collection<Word> findAll();
     void save(Word word);
-    Collection<Word> findByWord(String word);
+    List<Word> findByWord(String word);
     boolean existsByWord(String word);
     void delete(Word word);
     void deleteAll();
+
+
+
+    @Query  ("" +
+            "MERGE (w: Word {word: $word1})\n" +
+            "MERGE (w2: Word {word: $word2})\n" +
+            "MERGE (w) -[:TRANSLATES {language: $lang2}]-> (w2)\n" +
+            "MERGE (w2) -[:TRANSLATES {language: $lang1}] -> (w)")
+    void addTranslation(String word1, String lang1, String word2, String lang2);
+
+
 }

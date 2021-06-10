@@ -15,6 +15,12 @@ public class Word
     @Id
     private String word;
 
+    private static final Set<String> supportedLanguages = Set.of("english", "polish", "spanish", "german");
+
+    public static Set<String> getSupportedLanguages() { return supportedLanguages; }
+
+    public static boolean isSupportedLanguage(String lang) { return supportedLanguages.contains(lang.toLowerCase()); }
+
     public String getWord()
     {
         return word;
@@ -25,8 +31,12 @@ public class Word
         this.word = word;
     }
 
-    @Relationship(type="TRANSLATES_INTO", direction = Relationship.Direction.OUTGOING)
+    @Relationship(type="TRANSLATES", direction = Relationship.Direction.OUTGOING)
     private List<Translation> translations = new ArrayList<>();
+
+    public List<Translation> getTranslations() {
+        return translations;
+    }
 
     @Override
     public boolean equals(Object o)
@@ -42,4 +52,6 @@ public class Word
     {
         return Objects.hash(getWord());
     }
+
+
 }
