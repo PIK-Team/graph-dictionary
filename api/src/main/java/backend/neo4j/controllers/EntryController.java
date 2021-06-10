@@ -103,19 +103,29 @@ public class EntryController {
      * plus all children of the specified entry,
      * plus all definitions of the specified entry.
      */
-    @GetMapping("{dictName}/{entryName}/overview")
-    public Entry entryOverview(@PathVariable String dictName, @PathVariable String entryName) {
+//    @GetMapping("{dictName}/{entryName}/overview")
+//    @RequestMapping(
+//            value = "{dictName}/{entryName}/overview",
+//            params = "limit",
+//            method = RequestMethod.GET
+//    )
+    @GetMapping(value = "{dictName}/{entryName}/overview")
+    public Entry entryOverview(@PathVariable String dictName, @PathVariable String entryName,
+                               @RequestParam(name = "child-limit", required = false, defaultValue = "100") int child_limit,
+                               @RequestParam(name = "parent-limit", required = false, defaultValue = "10") int parent_limit) {
 
         Entry currentEntry;
         Entry parent;
 
-        List<Entry> children = entryRepository.getChildrenWordsOnly(dictName, entryName);
+        System.out.println("Limit: " + child_limit);
+        List<Entry> children = entryRepository.getChildrenWordsOnly(dictName, entryName, child_limit);
         currentEntry = findByWord(entryName, dictName);
         currentEntry.setSubentries(children);
 
-        while ((parent = entryRepository.getParentWordOnly(dictName, currentEntry.getWord().getWord())) != null){
+        while (parent_limit > 0 && (parent = entryRepository.getParentWordOnly(dictName, currentEntry.getWord().getWord())) != null ){
             parent.addEntry(currentEntry);
             currentEntry = parent;
+            --parent_limit;
         }
 
         return currentEntry;
