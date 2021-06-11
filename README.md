@@ -26,5 +26,5 @@ Deployment is done from the release branch onto the https://graph-dictionary.azu
 ### Run the applcation
 - To run the application, use `gatbsy develop` inside the main directory
 ### Deployment
-- Thanks to Gatsby cloud's integration with github, the application effortlessly deploys to the `https://graphdictionary25622.gatsbyjs.io/` website, where it should be available for the end-user
+- Thanks to Gatsby cloud's integration with github, the application effortlessly deploys to the `https://graphdictionary25622.gatsbyjs.io/` website, where it should be available for the end-user.
 - To deploy, just head over to https://www.gatsbyjs.com/
